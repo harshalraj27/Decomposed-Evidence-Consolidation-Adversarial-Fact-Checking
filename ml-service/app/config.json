@@ -1,0 +1,7 @@
+{
+  "model_name": "sentence-transformers/multi-qa-mpnet-base-dot-v1",
+  "faiss_index_path": "data/index.faiss",
+  "metas_path" : "data/metas.jsonl",
+  "raw_data_path": "data/raw/",
+  "top_k": 10
+}
