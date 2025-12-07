@@ -1,20 +1,19 @@
 from collections import defaultdict
 from transformers import pipeline
 import re
+from .config import *
 
 classifier = pipeline("zero-shot-classification", model="facebook/bart-large-mnli", device=0)
 
-labels = ['science/maths', 'technology', 'politics/government', 'health/medicine',
-          'economy/finance', 'environment/climate', 'history', 'general knowledge']
 
 health_regex = r"\b(vaccine|covid|virus|disease|infection|drug|antibiotic|cancer|therapy|symptom)\b"
 eco_regex = r"\b(inflation|gdp|price|stock|market|revenue|tax|unemployment|interest rate)\b"
 history_regex = r"\b(1[0-9]{3}|20[0-2][0-9]|[0-9]{1,2}th century|world war|ancient|medieval)\b"
 env_regex = r"\b(climate|global warming|carbon|co2|deforestation|pollution|emissions)\b"
 
-THRESHOLD = 0.45
 
-def classify(sentence, top_label=None, top_score=None):
+
+def classify(sentence, top_label=None, top_score=None, THRESHOLD = 0.45):
     if not sentence or not sentence.strip():
         return "general knowledge", 0.0
 
@@ -36,7 +35,7 @@ def classify(sentence, top_label=None, top_score=None):
     return "general knowledge", top_score
 
 
-def label(text, max_chars=500, top_k=2, score_threshold=0.2, batch_size=16):
+def label(text, max_chars=500, top_k=2, score_threshold=0.2, batch_size=16, THRESHOLD = 0.45):
     text = (text or "")[:max_chars]
     sentences = [s.strip() for s in re.split(r'(?<=[.!?])\s+', text) if s.strip()]
 
@@ -54,7 +53,7 @@ def label(text, max_chars=500, top_k=2, score_threshold=0.2, batch_size=16):
 
     results = []
     if to_classify:
-        results = classifier(to_classify, labels, batch_size=batch_size)
+        results = classifier(to_classify, labels, batch_size=batch_size, THRESHOLD = THRESHOLD)
         if isinstance(results, dict):
             results = [results]
 
@@ -76,8 +75,8 @@ def label(text, max_chars=500, top_k=2, score_threshold=0.2, batch_size=16):
     s_labels = [(sentences[i], out[i][0], out[i][1]) for i in range(len(sentences))]
 
     score_map = defaultdict(list)
-    for _, lbl, sc in s_labels:
-        score_map[lbl].append(sc)
+    for _, lbl, score in s_labels:
+        score_map[lbl].append(score)
 
     aggregated = {}
     for l in labels:

@@ -3,5 +3,6 @@
   "faiss_index_path": "data/index.faiss",
   "metas_path" : "data/metas.jsonl",
   "raw_data_path": "data/raw/",
-  "top_k": 10
+  "top_k": 10,
+  "label_test": "data/label_classifier_test.jsonl"
 }
