@@ -116,8 +116,6 @@ docker-compose.override.yml
 # ----------------------------
 # PROJECT ROOT
 # ----------------------------
-data/
-!data/sample/  # allow small samples only
 
 *.sqlite*
 *.db

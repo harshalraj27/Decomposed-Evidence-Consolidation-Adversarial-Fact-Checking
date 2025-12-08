@@ -1,0 +1,7 @@
+{"threshold": 0.3, "ablation": null, "macro_f1": 0.7076421252845375, "micro_f1": 0.72, "accuracy": 0.72, "coverage": 0.79}
+{"threshold": 0.35, "ablation": null, "macro_f1": 0.704987125989926, "micro_f1": 0.72, "accuracy": 0.72, "coverage": 0.74}
+{"threshold": 0.39999999999999997, "ablation": null, "macro_f1": 0.6857411815193346, "micro_f1": 0.7, "accuracy": 0.7, "coverage": 0.715}
+{"threshold": 0.44999999999999996, "ablation": null, "macro_f1": 0.6813922671573758, "micro_f1": 0.695, "accuracy": 0.695, "coverage": 0.7}
+{"threshold": 0.49999999999999994, "ablation": null, "macro_f1": 0.670894495404375, "micro_f1": 0.68, "accuracy": 0.68, "coverage": 0.67}
+{"threshold": 0.5499999999999999, "ablation": null, "macro_f1": 0.6612913666792977, "micro_f1": 0.665, "accuracy": 0.665, "coverage": 0.645}
+{"threshold": 0.5999999999999999, "ablation": null, "macro_f1": 0.645955657591974, "micro_f1": 0.645, "accuracy": 0.645, "coverage": 0.62}

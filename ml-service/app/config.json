@@ -4,5 +4,6 @@
   "metas_path" : "data/metas.jsonl",
   "raw_data_path": "data/raw/",
   "top_k": 10,
-  "label_test": "data/label_classifier_test.jsonl"
+  "label_test": "data/label_classifier_test.jsonl",
+  "label_eval_path": "data/evaluations/label_classification/"
 }

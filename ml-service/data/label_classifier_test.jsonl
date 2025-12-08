@@ -1,0 +1,200 @@
+{"sentence": "The discovery of a new exoplanet challenges existing models of planetary formation.", "label": "science/maths"}
+{"sentence": "Quantum entanglement experiments have shown unprecedented coherence times.", "label": "science/maths"}
+{"sentence": "The theorem relies on a non-trivial application of linear algebra.", "label": "science/maths"}
+{"sentence": "Astrophysicists measured the mass of the black hole using gravitational lensing.", "label": "science/maths"}
+{"sentence": "Mathematicians proposed a new proof for the long-standing conjecture.", "label": "science/maths"}
+{"sentence": "The chemical reaction produces an unexpected intermediate compound.", "label": "science/maths"}
+{"sentence": "Particle accelerators enable precise measurements of subatomic forces.", "label": "science/maths"}
+{"sentence": "Researchers simulated fluid dynamics using differential equations.", "label": "science/maths"}
+{"sentence": "The spacecraft's trajectory was calculated using orbital mechanics.", "label": "science/maths"}
+{"sentence": "Statistical models indicate a significant deviation from the null hypothesis.", "label": "science/maths"}
+{"sentence": "The experiment required isolating variables to reduce measurement noise.", "label": "science/maths"}
+{"sentence": "Geologists identified new mineral structures in the volcanic sample.", "label": "science/maths"}
+{"sentence": "The study's control group exhibited predictable behavioral patterns.", "label": "science/maths"}
+{"sentence": "A new algorithm improved the precision of climate simulations.", "label": "science/maths"}
+{"sentence": "The satellite detected changes in atmospheric particle concentrations.", "label": "science/maths"}
+{"sentence": "Researchers analyzed the spectral frequency of ocean waves.", "label": "science/maths"}
+{"sentence": "The model’s prediction error decreased after parameter tuning.", "label": "science/maths"}
+{"sentence": "Biologists observed variations in the genetic sequence across populations.", "label": "science/maths"}
+{"sentence": "The research team evaluated chemical bonding properties under high pressure.", "label": "science/maths"}
+{"sentence": "Statistical inference plays a major role in determining sample reliability.", "label": "science/maths"}
+{"sentence": "A new imaging technique allows better visualization of microscopic structures.", "label": "science/maths"}
+{"sentence": "Scientists developed a high-resolution map of cosmic radiation.", "label": "science/maths"}
+{"sentence": "Thermodynamics principles explain the observed change in system energy.", "label": "science/maths"}
+{"sentence": "The mathematical model incorporates non-linear feedback loops.", "label": "science/maths"}
+{"sentence": "The researcher replicated the experiment to confirm reproducibility.", "label": "science/maths"}
+{"sentence": "The company unveiled a next-generation smartphone with advanced AI hardware.", "label": "technology"}
+{"sentence": "Developers released a new open-source framework for building web apps.", "label": "technology"}
+{"sentence": "The autonomous drone successfully completed the delivery route.", "label": "technology"}
+{"sentence": "Cybersecurity experts warned about vulnerabilities in outdated systems.", "label": "technology"}
+{"sentence": "The startup announced a breakthrough in battery technology.", "label": "technology"}
+{"sentence": "Robotics engineers tested a new humanoid robot capable of complex tasks.", "label": "technology"}
+{"sentence": "The software update introduced improved memory management.", "label": "technology"}
+{"sentence": "Researchers achieved faster data transfer using photonic chips.", "label": "technology"}
+{"sentence": "Cloud computing services continue to expand across industries.", "label": "technology"}
+{"sentence": "A new GPU architecture significantly enhances computational throughput.", "label": "technology"}
+{"sentence": "The team optimized the app to reduce latency for mobile users.", "label": "technology"}
+{"sentence": "AI models are being deployed to detect fraudulent transactions.", "label": "technology"}
+{"sentence": "Wearable devices are integrating more sophisticated health sensors.", "label": "technology"}
+{"sentence": "The quantum computer successfully executed a complex benchmark.", "label": "technology"}
+{"sentence": "Researchers are experimenting with bio-inspired neural chips.", "label": "technology"}
+{"sentence": "The network outage affected millions of customers worldwide.", "label": "technology"}
+{"sentence": "The system now supports real-time video processing.", "label": "technology"}
+{"sentence": "The autonomous vehicle updated its navigation model via OTA.", "label": "technology"}
+{"sentence": "The app uses encryption to secure user messages.", "label": "technology"}
+{"sentence": "Smart home devices are gaining widespread consumer adoption.", "label": "technology"}
+{"sentence": "The lab developed a flexible display material for tablets.", "label": "technology"}
+{"sentence": "Engineers built a sensor that detects microscopic vibrations.", "label": "technology"}
+{"sentence": "The 5G network rollout is accelerating in major cities.", "label": "technology"}
+{"sentence": "Developers released a major patch to fix critical bugs.", "label": "technology"}
+{"sentence": "Speech recognition accuracy improved with updated acoustic models.", "label": "technology"}
+{"sentence": "The government announced new regulations to strengthen data protection.", "label": "politics/government"}
+{"sentence": "The election commission released the final list of candidates.", "label": "politics/government"}
+{"sentence": "Lawmakers debated a bill aimed at improving public healthcare.", "label": "politics/government"}
+{"sentence": "The president met with foreign leaders to discuss trade agreements.", "label": "politics/government"}
+{"sentence": "The new policy outlines stricter penalties for corruption.", "label": "politics/government"}
+{"sentence": "The parliament approved a budget amendment for infrastructure projects.", "label": "politics/government"}
+{"sentence": "Diplomats negotiated to reduce tensions in the region.", "label": "politics/government"}
+{"sentence": "The judiciary issued a ruling on constitutional rights.", "label": "politics/government"}
+{"sentence": "The central government launched a nationwide welfare initiative.", "label": "politics/government"}
+{"sentence": "The mayor announced urban development plans for the next decade.", "label": "politics/government"}
+{"sentence": "Protesters gathered to oppose changes to labor laws.", "label": "politics/government"}
+{"sentence": "The foreign ministry expressed concern over rising border disputes.", "label": "politics/government"}
+{"sentence": "The committee recommended electoral reforms.", "label": "politics/government"}
+{"sentence": "Local authorities implemented new safety guidelines.", "label": "politics/government"}
+{"sentence": "The agency released a report on national security threats.", "label": "politics/government"}
+{"sentence": "The governor vetoed a controversial transportation bill.", "label": "politics/government"}
+{"sentence": "The city council approved funding for public schools.", "label": "politics/government"}
+{"sentence": "Officials discussed strategies to counter misinformation.", "label": "politics/government"}
+{"sentence": "The ministry announced a nationwide digital ID rollout.", "label": "politics/government"}
+{"sentence": "The senator proposed tax reforms to support small businesses.", "label": "politics/government"}
+{"sentence": "The government extended restrictions during the emergency period.", "label": "politics/government"}
+{"sentence": "The policy aims to increase transparency in governance.", "label": "politics/government"}
+{"sentence": "The administration conducted a review of defense spending.", "label": "politics/government"}
+{"sentence": "The referendum results were officially certified.", "label": "politics/government"}
+{"sentence": "Authorities strengthened border control procedures.", "label": "politics/government"}
+{"sentence": "Doctors observed a decrease in infection rates after vaccination.", "label": "health/medicine"}
+{"sentence": "Researchers are testing a new antiviral drug for safety.", "label": "health/medicine"}
+{"sentence": "The disease spreads primarily through respiratory droplets.", "label": "health/medicine"}
+{"sentence": "The patient showed improvement after starting the therapy.", "label": "health/medicine"}
+{"sentence": "Hospitals reported a shortage of essential medical supplies.", "label": "health/medicine"}
+{"sentence": "Scientists identified a mutation affecting the virus's transmission.", "label": "health/medicine"}
+{"sentence": "The treatment requires a combination of antibiotics.", "label": "health/medicine"}
+{"sentence": "The vaccine produced strong immune responses in early trials.", "label": "health/medicine"}
+{"sentence": "The clinic introduced new screening procedures.", "label": "health/medicine"}
+{"sentence": "The doctor recommended further diagnostic tests.", "label": "health/medicine"}
+{"sentence": "Researchers studied long-term effects of chronic illness.", "label": "health/medicine"}
+{"sentence": "The therapy reduces inflammation in patients.", "label": "health/medicine"}
+{"sentence": "Medical staff monitored symptoms closely.", "label": "health/medicine"}
+{"sentence": "New guidelines recommend booster doses for high-risk groups.", "label": "health/medicine"}
+{"sentence": "Pharmaceutical companies are developing next-gen vaccines.", "label": "health/medicine"}
+{"sentence": "The surgeon performed a minimally invasive procedure.", "label": "health/medicine"}
+{"sentence": "Health officials warned of rising flu cases.", "label": "health/medicine"}
+{"sentence": "The medication helps regulate blood pressure.", "label": "health/medicine"}
+{"sentence": "Researchers identified biomarkers for early detection.", "label": "health/medicine"}
+{"sentence": "The study reported mild side effects among participants.", "label": "health/medicine"}
+{"sentence": "The virus exhibits resistance to certain treatments.", "label": "health/medicine"}
+{"sentence": "The patient required antiviral therapy to stabilize.", "label": "health/medicine"}
+{"sentence": "Nurses increased monitoring during recovery.", "label": "health/medicine"}
+{"sentence": "The hospital expanded its emergency care unit.", "label": "health/medicine"}
+{"sentence": "Doctors emphasized the importance of preventive healthcare.", "label": "health/medicine"}
+{"sentence": "Inflation reached its highest level in a decade.", "label": "economy/finance"}
+{"sentence": "Stock markets reacted positively to the earnings report.", "label": "economy/finance"}
+{"sentence": "The central bank raised interest rates to curb inflation.", "label": "economy/finance"}
+{"sentence": "GDP growth exceeded analysts' expectations.", "label": "economy/finance"}
+{"sentence": "Unemployment rates declined as businesses reopened.", "label": "economy/finance"}
+{"sentence": "The company reported record quarterly revenue.", "label": "economy/finance"}
+{"sentence": "Consumers faced rising prices across essential goods.", "label": "economy/finance"}
+{"sentence": "The bond market showed signs of increased volatility.", "label": "economy/finance"}
+{"sentence": "Banks tightened lending standards amid uncertainty.", "label": "economy/finance"}
+{"sentence": "Taxes on luxury goods were increased by the government.", "label": "economy/finance"}
+{"sentence": "Investors shifted capital to safer assets.", "label": "economy/finance"}
+{"sentence": "The real estate market cooled after a rapid surge.", "label": "economy/finance"}
+{"sentence": "Interest rate hikes affected loan demand.", "label": "economy/finance"}
+{"sentence": "The currency depreciated due to global market pressures.", "label": "economy/finance"}
+{"sentence": "Retail sales grew despite economic challenges.", "label": "economy/finance"}
+{"sentence": "Corporate profits fell in the last quarter.", "label": "economy/finance"}
+{"sentence": "The startup secured funding from major investors.", "label": "economy/finance"}
+{"sentence": "Tax reforms aim to stimulate small businesses.", "label": "economy/finance"}
+{"sentence": "The government increased spending on public infrastructure.", "label": "economy/finance"}
+{"sentence": "Economic indicators point to gradual recovery.", "label": "economy/finance"}
+{"sentence": "The stock index surged after policy announcements.", "label": "economy/finance"}
+{"sentence": "Investors are cautious amid inflationary concerns.", "label": "economy/finance"}
+{"sentence": "Analysts forecast steady revenue growth next year.", "label": "economy/finance"}
+{"sentence": "Consumers reduced discretionary spending.", "label": "economy/finance"}
+{"sentence": "Export volumes increased after trade agreements.", "label": "economy/finance"}
+{"sentence": "Carbon emissions increased despite mitigation efforts.", "label": "environment/climate"}
+{"sentence": "The region faces severe drought due to changing climate patterns.", "label": "environment/climate"}
+{"sentence": "Researchers warned that global warming is accelerating.", "label": "environment/climate"}
+{"sentence": "Deforestation continues to threaten wildlife habitats.", "label": "environment/climate"}
+{"sentence": "Air pollution levels exceeded safety limits in urban areas.", "label": "environment/climate"}
+{"sentence": "Scientists recorded unusually high CO2 levels.", "label": "environment/climate"}
+{"sentence": "Melting glaciers contribute to rising sea levels.", "label": "environment/climate"}
+{"sentence": "Governments are investing in renewable energy sources.", "label": "environment/climate"}
+{"sentence": "The wildfire destroyed thousands of acres of forest.", "label": "environment/climate"}
+{"sentence": "Climate models predict increased frequency of storms.", "label": "environment/climate"}
+{"sentence": "Solar power installations reached record highs.", "label": "environment/climate"}
+{"sentence": "Greenhouse gases continue to accumulate in the atmosphere.", "label": "environment/climate"}
+{"sentence": "Recycling initiatives aim to reduce waste.", "label": "environment/climate"}
+{"sentence": "New policies encourage electric vehicle adoption.", "label": "environment/climate"}
+{"sentence": "Marine ecosystems suffer from rising temperatures.", "label": "environment/climate"}
+{"sentence": "The conservation project restored several wetlands.", "label": "environment/climate"}
+{"sentence": "Researchers study the impact of pollution on coral reefs.", "label": "environment/climate"}
+{"sentence": "Renewable energy use is expanding rapidly.", "label": "environment/climate"}
+{"sentence": "Fossil fuel consumption remains a major global issue.", "label": "environment/climate"}
+{"sentence": "Environmental groups urged action on climate policies.", "label": "environment/climate"}
+{"sentence": "The heatwave set new temperature records.", "label": "environment/climate"}
+{"sentence": "Wind farms generated more electricity than expected.", "label": "environment/climate"}
+{"sentence": "The lake's water quality has deteriorated.", "label": "environment/climate"}
+{"sentence": "Coastal regions face increased flood risks.", "label": "environment/climate"}
+{"sentence": "Sustainable farming practices help reduce emissions.", "label": "environment/climate"}
+{"sentence": "The Roman Empire expanded across vast territories.", "label": "history"}
+{"sentence": "Archaeologists uncovered artifacts from an ancient civilization.", "label": "history"}
+{"sentence": "The medieval era saw significant changes in social structure.", "label": "history"}
+{"sentence": "Historians debated the causes of the 18th-century revolution.", "label": "history"}
+{"sentence": "The 14th century witnessed major cultural transformations.", "label": "history"}
+{"sentence": "The World War II conflict reshaped global alliances.", "label": "history"}
+{"sentence": "Documents reveal details about early trade routes.", "label": "history"}
+{"sentence": "The dynasty ruled the region for several centuries.", "label": "history"}
+{"sentence": "Ancient scripts were discovered in the ruins.", "label": "history"}
+{"sentence": "The treaty officially ended decades of conflict.", "label": "history"}
+{"sentence": "Historians reconstructed events using preserved manuscripts.", "label": "history"}
+{"sentence": "The excavation site exposed medieval craftsmanship.", "label": "history"}
+{"sentence": "The empire collapsed due to internal political struggles.", "label": "history"}
+{"sentence": "Artifacts indicate a sophisticated level of engineering.", "label": "history"}
+{"sentence": "The pharaoh's tomb contained rare ceremonial objects.", "label": "history"}
+{"sentence": "The kingdom expanded through strategic conquests.", "label": "history"}
+{"sentence": "The ancient city thrived due to fertile land.", "label": "history"}
+{"sentence": "Scholars analyzed inscriptions from the Bronze Age.", "label": "history"}
+{"sentence": "The Renaissance marked a period of scientific rebirth.", "label": "history"}
+{"sentence": "The 19th century saw rapid industrial growth.", "label": "history"}
+{"sentence": "A historic battle determined control of the region.", "label": "history"}
+{"sentence": "Historians discovered previously unknown letters from the monarch.", "label": "history"}
+{"sentence": "The revolution sparked political transformation.", "label": "history"}
+{"sentence": "Ancient pottery reveals details about trade networks.", "label": "history"}
+{"sentence": "The medieval fortress served as a military base.", "label": "history"}
+{"sentence": "Water boils at 100 degrees Celsius.", "label": "general knowledge"}
+{"sentence": "The sun rises in the east and sets in the west.", "label": "general knowledge"}
+{"sentence": "Most fruits contain natural sugars.", "label": "general knowledge"}
+{"sentence": "A week has seven days.", "label": "general knowledge"}
+{"sentence": "Mount Everest is the highest mountain above sea level.", "label": "general knowledge"}
+{"sentence": "People often drink coffee to stay alert.", "label": "general knowledge"}
+{"sentence": "Cats are commonly kept as household pets.", "label": "general knowledge"}
+{"sentence": "Libraries are places where people can borrow books.", "label": "general knowledge"}
+{"sentence": "Rainbows form when light refracts through water droplets.", "label": "general knowledge"}
+{"sentence": "The Earth orbits around the Sun once each year.", "label": "general knowledge"}
+{"sentence": "Many people enjoy listening to music.", "label": "general knowledge"}
+{"sentence": "Bicycles are a popular means of transportation.", "label": "general knowledge"}
+{"sentence": "Cooking requires heat to transform ingredients.", "label": "general knowledge"}
+{"sentence": "Most birds build nests to protect their eggs.", "label": "general knowledge"}
+{"sentence": "Winter is typically colder than summer.", "label": "general knowledge"}
+{"sentence": "Walking is a simple form of exercise.", "label": "general knowledge"}
+{"sentence": "Humans need water to survive.", "label": "general knowledge"}
+{"sentence": "Reading improves vocabulary and comprehension.", "label": "general knowledge"}
+{"sentence": "Buses are used for public transportation.", "label": "general knowledge"}
+{"sentence": "Flags are used to represent countries.", "label": "general knowledge"}
+{"sentence": "People often celebrate birthdays with cake.", "label": "general knowledge"}
+{"sentence": "The sky appears blue due to scattering of light.", "label": "general knowledge"}
+{"sentence": "Keys are used to unlock doors.", "label": "general knowledge"}
+{"sentence": "Most homes have windows to allow light inside.", "label": "general knowledge"}
+{"sentence": "Animals need food and water to live.", "label": "general knowledge"}

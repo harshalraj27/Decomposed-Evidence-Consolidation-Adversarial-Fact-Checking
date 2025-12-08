@@ -1,0 +1,302 @@
+{
+  "low_threshold": {
+    "per_class": {
+      "science/maths": {
+        "precision": 1.0,
+        "recall": 0.24,
+        "f1": 0.3870967741935484,
+        "support": 25
+      },
+      "technology": {
+        "precision": 0.5208333333333334,
+        "recall": 1.0,
+        "f1": 0.684931506849315,
+        "support": 25
+      },
+      "politics/government": {
+        "precision": 0.7916666666666666,
+        "recall": 0.76,
+        "f1": 0.7755102040816326,
+        "support": 25
+      },
+      "health/medicine": {
+        "precision": 0.9230769230769231,
+        "recall": 0.96,
+        "f1": 0.9411764705882353,
+        "support": 25
+      },
+      "economy/finance": {
+        "precision": 1.0,
+        "recall": 0.52,
+        "f1": 0.6842105263157895,
+        "support": 25
+      },
+      "environment/climate": {
+        "precision": 0.8,
+        "recall": 0.8,
+        "f1": 0.8,
+        "support": 25
+      },
+      "history": {
+        "precision": 0.8148148148148148,
+        "recall": 0.88,
+        "f1": 0.8461538461538461,
+        "support": 25
+      },
+      "general knowledge": {
+        "precision": 0.6129032258064516,
+        "recall": 0.76,
+        "f1": 0.6785714285714286,
+        "support": 25
+      }
+    },
+    "macro_f1": 0.7247063445942244,
+    "micro_f1": 0.74,
+    "accuracy": 0.74,
+    "coverage": 0.845,
+    "confusion_matrix": {
+      "labels": [
+        "science/maths",
+        "technology",
+        "politics/government",
+        "health/medicine",
+        "economy/finance",
+        "environment/climate",
+        "history",
+        "general knowledge"
+      ],
+      "matrix": [
+        [
+          6,
+          13,
+          0,
+          0,
+          0,
+          2,
+          0,
+          4
+        ],
+        [
+          0,
+          25,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          19,
+          1,
+          0,
+          0,
+          3,
+          1
+        ],
+        [
+          0,
+          1,
+          0,
+          24,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1,
+          2,
+          0,
+          13,
+          0,
+          2,
+          7
+        ],
+        [
+          0,
+          4,
+          1,
+          0,
+          0,
+          20,
+          0,
+          0
+        ],
+        [
+          0,
+          2,
+          1,
+          0,
+          0,
+          0,
+          22,
+          0
+        ],
+        [
+          0,
+          1,
+          1,
+          1,
+          0,
+          3,
+          0,
+          19
+        ]
+      ]
+    }
+  },
+  "high_threshold": {
+    "per_class": {
+      "science/maths": {
+        "precision": 1.0,
+        "recall": 0.08,
+        "f1": 0.14814814814814814,
+        "support": 25
+      },
+      "technology": {
+        "precision": 0.8214285714285714,
+        "recall": 0.92,
+        "f1": 0.8679245283018868,
+        "support": 25
+      },
+      "politics/government": {
+        "precision": 1.0,
+        "recall": 0.04,
+        "f1": 0.07692307692307693,
+        "support": 25
+      },
+      "health/medicine": {
+        "precision": 0.9473684210526315,
+        "recall": 0.72,
+        "f1": 0.8181818181818182,
+        "support": 25
+      },
+      "economy/finance": {
+        "precision": 0.9285714285714286,
+        "recall": 0.52,
+        "f1": 0.6666666666666666,
+        "support": 25
+      },
+      "environment/climate": {
+        "precision": 0.9333333333333333,
+        "recall": 0.56,
+        "f1": 0.7,
+        "support": 25
+      },
+      "history": {
+        "precision": 1.0,
+        "recall": 0.6,
+        "f1": 0.75,
+        "support": 25
+      },
+      "general knowledge": {
+        "precision": 0.2358490566037736,
+        "recall": 1.0,
+        "f1": 0.3816793893129771,
+        "support": 25
+      }
+    },
+    "macro_f1": 0.5511904534418217,
+    "micro_f1": 0.555,
+    "accuracy": 0.555,
+    "coverage": 0.47,
+    "confusion_matrix": {
+      "labels": [
+        "science/maths",
+        "technology",
+        "politics/government",
+        "health/medicine",
+        "economy/finance",
+        "environment/climate",
+        "history",
+        "general knowledge"
+      ],
+      "matrix": [
+        [
+          2,
+          4,
+          0,
+          0,
+          0,
+          1,
+          0,
+          18
+        ],
+        [
+          0,
+          23,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2
+        ],
+        [
+          0,
+          0,
+          1,
+          1,
+          1,
+          0,
+          0,
+          22
+        ],
+        [
+          0,
+          0,
+          0,
+          18,
+          0,
+          0,
+          0,
+          7
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          13,
+          0,
+          0,
+          12
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          14,
+          0,
+          11
+        ],
+        [
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          15,
+          9
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          25
+        ]
+      ]
+    }
+  }
+}
