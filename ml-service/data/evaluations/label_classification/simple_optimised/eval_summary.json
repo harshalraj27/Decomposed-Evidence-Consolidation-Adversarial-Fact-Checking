@@ -1,0 +1,179 @@
+{
+  "metrics": {
+    "per_class": {
+      "science": {
+        "precision": 0.6296296296296297,
+        "recall": 0.68,
+        "f1": 0.6538461538461539,
+        "support": 25
+      },
+      "maths": {
+        "precision": 1.0,
+        "recall": 0.52,
+        "f1": 0.6842105263157895,
+        "support": 25
+      },
+      "technology": {
+        "precision": 0.7142857142857143,
+        "recall": 1.0,
+        "f1": 0.8333333333333334,
+        "support": 25
+      },
+      "politics/government": {
+        "precision": 0.7368421052631579,
+        "recall": 0.56,
+        "f1": 0.6363636363636364,
+        "support": 25
+      },
+      "health/medicine": {
+        "precision": 0.9130434782608695,
+        "recall": 0.84,
+        "f1": 0.875,
+        "support": 25
+      },
+      "economy/finance": {
+        "precision": 1.0,
+        "recall": 0.64,
+        "f1": 0.7804878048780488,
+        "support": 25
+      },
+      "environment/climate": {
+        "precision": 0.75,
+        "recall": 0.6,
+        "f1": 0.6666666666666666,
+        "support": 25
+      },
+      "history": {
+        "precision": 0.8695652173913043,
+        "recall": 0.8,
+        "f1": 0.8333333333333334,
+        "support": 25
+      },
+      "general knowledge": {
+        "precision": 0.3469387755102041,
+        "recall": 0.68,
+        "f1": 0.4594594594594595,
+        "support": 25
+      }
+    },
+    "macro_f1": 0.7136334349107135,
+    "micro_f1": 0.7022222222222222,
+    "accuracy": 0.7022222222222222,
+    "coverage": 0.7822222222222223,
+    "confusion_matrix": {
+      "labels": [
+        "science",
+        "maths",
+        "technology",
+        "politics/government",
+        "health/medicine",
+        "economy/finance",
+        "environment/climate",
+        "history",
+        "general knowledge"
+      ],
+      "matrix": [
+        [
+          17,
+          0,
+          1,
+          0,
+          0,
+          0,
+          2,
+          1,
+          4
+        ],
+        [
+          0,
+          13,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          12
+        ],
+        [
+          0,
+          0,
+          25,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          14,
+          1,
+          0,
+          0,
+          2,
+          7
+        ],
+        [
+          3,
+          0,
+          0,
+          0,
+          21,
+          0,
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          1,
+          2,
+          0,
+          16,
+          0,
+          0,
+          6
+        ],
+        [
+          3,
+          0,
+          4,
+          1,
+          0,
+          0,
+          15,
+          0,
+          2
+        ],
+        [
+          2,
+          0,
+          2,
+          1,
+          0,
+          0,
+          0,
+          20,
+          0
+        ],
+        [
+          2,
+          0,
+          1,
+          1,
+          1,
+          0,
+          3,
+          0,
+          17
+        ]
+      ]
+    }
+  },
+  "generated_at": "2025-12-09T17:43:52.561279Z"
+}

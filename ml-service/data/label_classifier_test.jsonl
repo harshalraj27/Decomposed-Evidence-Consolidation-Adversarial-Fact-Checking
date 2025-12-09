@@ -1,28 +1,3 @@
-{"sentence": "The discovery of a new exoplanet challenges existing models of planetary formation.", "label": "science/maths"}
-{"sentence": "Quantum entanglement experiments have shown unprecedented coherence times.", "label": "science/maths"}
-{"sentence": "The theorem relies on a non-trivial application of linear algebra.", "label": "science/maths"}
-{"sentence": "Astrophysicists measured the mass of the black hole using gravitational lensing.", "label": "science/maths"}
-{"sentence": "Mathematicians proposed a new proof for the long-standing conjecture.", "label": "science/maths"}
-{"sentence": "The chemical reaction produces an unexpected intermediate compound.", "label": "science/maths"}
-{"sentence": "Particle accelerators enable precise measurements of subatomic forces.", "label": "science/maths"}
-{"sentence": "Researchers simulated fluid dynamics using differential equations.", "label": "science/maths"}
-{"sentence": "The spacecraft's trajectory was calculated using orbital mechanics.", "label": "science/maths"}
-{"sentence": "Statistical models indicate a significant deviation from the null hypothesis.", "label": "science/maths"}
-{"sentence": "The experiment required isolating variables to reduce measurement noise.", "label": "science/maths"}
-{"sentence": "Geologists identified new mineral structures in the volcanic sample.", "label": "science/maths"}
-{"sentence": "The study's control group exhibited predictable behavioral patterns.", "label": "science/maths"}
-{"sentence": "A new algorithm improved the precision of climate simulations.", "label": "science/maths"}
-{"sentence": "The satellite detected changes in atmospheric particle concentrations.", "label": "science/maths"}
-{"sentence": "Researchers analyzed the spectral frequency of ocean waves.", "label": "science/maths"}
-{"sentence": "The model’s prediction error decreased after parameter tuning.", "label": "science/maths"}
-{"sentence": "Biologists observed variations in the genetic sequence across populations.", "label": "science/maths"}
-{"sentence": "The research team evaluated chemical bonding properties under high pressure.", "label": "science/maths"}
-{"sentence": "Statistical inference plays a major role in determining sample reliability.", "label": "science/maths"}
-{"sentence": "A new imaging technique allows better visualization of microscopic structures.", "label": "science/maths"}
-{"sentence": "Scientists developed a high-resolution map of cosmic radiation.", "label": "science/maths"}
-{"sentence": "Thermodynamics principles explain the observed change in system energy.", "label": "science/maths"}
-{"sentence": "The mathematical model incorporates non-linear feedback loops.", "label": "science/maths"}
-{"sentence": "The researcher replicated the experiment to confirm reproducibility.", "label": "science/maths"}
 {"sentence": "The company unveiled a next-generation smartphone with advanced AI hardware.", "label": "technology"}
 {"sentence": "Developers released a new open-source framework for building web apps.", "label": "technology"}
 {"sentence": "The autonomous drone successfully completed the delivery route.", "label": "technology"}
@@ -198,3 +173,53 @@
 {"sentence": "Keys are used to unlock doors.", "label": "general knowledge"}
 {"sentence": "Most homes have windows to allow light inside.", "label": "general knowledge"}
 {"sentence": "Animals need food and water to live.", "label": "general knowledge"}
+{"sentence": "A prime number has exactly two distinct positive divisors.", "label": "maths"}
+{"sentence": "The sum of the angles in a triangle is 180 degrees.", "label": "maths"}
+{"sentence": "A square has four equal sides.", "label": "maths"}
+{"sentence": "Multiplying two negative numbers results in a positive number.", "label": "maths"}
+{"sentence": "The area of a circle is given by pi multiplied by the radius squared.", "label": "maths"}
+{"sentence": "Fractions represent parts of a whole.", "label": "maths"}
+{"sentence": "The number zero is neither positive nor negative.", "label": "maths"}
+{"sentence": "A straight line has a slope that describes its steepness.", "label": "maths"}
+{"sentence": "Probability values always range between zero and one.", "label": "maths"}
+{"sentence": "An even number is divisible by two.", "label": "maths"}
+{"sentence": "A function assigns exactly one output to each input.", "label": "maths"}
+{"sentence": "A polygon is a closed shape made of straight lines.", "label": "maths"}
+{"sentence": "The Pythagorean theorem applies only to right triangles.", "label": "maths"}
+{"sentence": "A variable represents an unknown value in algebra.", "label": "maths"}
+{"sentence": "A ratio compares two quantities.", "label": "maths"}
+{"sentence": "A logarithm is the inverse of an exponential function.", "label": "maths"}
+{"sentence": "A matrix is a rectangular array of numbers.", "label": "maths"}
+{"sentence": "A derivative measures the rate of change of a function.", "label": "maths"}
+{"sentence": "An integral calculates the area under a curve.", "label": "maths"}
+{"sentence": "A geometric sequence multiplies each term by a constant factor.", "label": "maths"}
+{"sentence": "A permutation counts arrangements of items in a specific order.", "label": "maths"}
+{"sentence": "A median divides a dataset into two equal halves.", "label": "maths"}
+{"sentence": "A vector has both magnitude and direction.", "label": "maths"}
+{"sentence": "A coordinate plane is divided into four quadrants.", "label": "maths"}
+{"sentence": "Pi is an irrational number with infinite non-repeating decimals.", "label": "maths"}
+{"sentence": "Photosynthesis converts sunlight into chemical energy.", "label": "science"}
+{"sentence": "Atoms consist of protons, neutrons, and electrons.", "label": "science"}
+{"sentence": "Gravity pulls objects toward the center of the Earth.", "label": "science"}
+{"sentence": "Sound travels faster through solids than through gases.", "label": "science"}
+{"sentence": "DNA carries genetic information in living organisms.", "label": "science"}
+{"sentence": "Chemical reactions involve the rearrangement of atoms.", "label": "science"}
+{"sentence": "Electric current flows through a closed circuit.", "label": "science"}
+{"sentence": "Water expands when it freezes.", "label": "science"}
+{"sentence": "Energy cannot be created or destroyed, only transformed.", "label": "science"}
+{"sentence": "The human heart pumps blood through the circulatory system.", "label": "science"}
+{"sentence": "Light behaves both as a wave and a particle.", "label": "science"}
+{"sentence": "Cells are the basic structural units of life.", "label": "science"}
+{"sentence": "The periodic table organizes elements by atomic number.", "label": "science"}
+{"sentence": "Heat flows from warmer objects to cooler ones.", "label": "science"}
+{"sentence": "The Earth rotates on its axis once every 24 hours.", "label": "science"}
+{"sentence": "Fossils provide evidence of ancient life forms.", "label": "science"}
+{"sentence": "Acceleration is the rate of change of velocity.", "label": "science"}
+{"sentence": "Viruses require host cells to reproduce.", "label": "science"}
+{"sentence": "Magnetism is caused by moving electric charges.", "label": "science"}
+{"sentence": "Evaporation occurs when liquid molecules escape into the air.", "label": "science"}
+{"sentence": "Neurons transmit signals through electrical impulses.", "label": "science"}
+{"sentence": "Tides on Earth are mainly caused by the Moon’s gravity.", "label": "science"}
+{"sentence": "Oxidation is a process where a substance loses electrons.", "label": "science"}
+{"sentence": "The ozone layer absorbs harmful ultraviolet radiation.", "label": "science"}
+{"sentence": "The nervous system coordinates the body's responses.", "label": "science"}

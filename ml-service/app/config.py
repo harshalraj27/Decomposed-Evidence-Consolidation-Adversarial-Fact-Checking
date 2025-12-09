@@ -14,8 +14,8 @@ top_k = cfg.get('top_k', 5)
 label_eval_dir = Path(cfg['label_eval_path'])
 label_test_file = Path(cfg.get('label_test_file', cfg.get('label_test')))
 
-labels = ['science/maths', 'technology', 'politics/government', 'health/medicine',
+labels = ['science', 'maths', 'technology', 'politics/government', 'health/medicine',
           'economy/finance', 'environment/climate', 'history', 'general knowledge']
 
-threshold = 0.45
+threshold = 0.3
 device = 0

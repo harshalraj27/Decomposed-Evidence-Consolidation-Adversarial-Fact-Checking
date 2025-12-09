@@ -193,10 +193,10 @@ def sweep_thresholds(data_records, labels_list, sweep_from, sweep_to, sweep_step
                     _, metrics = run_one_threshold(t, val_data, batch_size, labels_list)
                     fold_metrics.append(metrics[metric_to_opt])
                 avg_metric = float(np.mean(fold_metrics))
-                row = {"threshold": float(t), "ablation": ablation, f"avg_{metric_to_opt}": avg_metric}
+                row = {"threshold": float(t), "ablation_initial": ablation, f"avg_{metric_to_opt}": avg_metric}
             else:
                 preds_meta, metrics = run_one_threshold(t, data_records, batch_size, labels_list)
-                row = {"threshold": float(t), "ablation": ablation,
+                row = {"threshold": float(t), "ablation_initial": ablation,
                        **{k: metrics.get(k) for k in ("macro_f1", "micro_f1", "accuracy", "coverage")}}
                 _write_jsonl(out / f"sweep_preds_thresh_{t:.3f}_ablation_{ablation}.jsonl", preds_meta)
                 if metrics.get(metric_to_opt, -999) > best["metric"]:
@@ -215,7 +215,7 @@ def run_ablation_set(data_records, labels_list, ablation_flags, out_dir=None, ba
         preds_meta, metrics = run_one_threshold(threshold, data_records, batch_size, labels_list)
         summaries[name] = metrics
         _write_jsonl(out / f"eval_summary_ablation_{name}.jsonl", preds_meta)
-    with (out / "ablation_summaries.json").open("w", encoding="utf8") as f:
+    with (out / "ablation_summaries_with_regex.json").open("w", encoding="utf8") as f:
         json.dump(summaries, f, indent=2, ensure_ascii=False)
     return summaries
 

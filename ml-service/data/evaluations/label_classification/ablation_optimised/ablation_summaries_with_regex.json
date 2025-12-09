@@ -1,0 +1,354 @@
+{
+  "low_threshold": {
+    "per_class": {
+      "science": {
+        "precision": 0.625,
+        "recall": 0.8,
+        "f1": 0.7017543859649122,
+        "support": 25
+      },
+      "maths": {
+        "precision": 1.0,
+        "recall": 0.64,
+        "f1": 0.7804878048780488,
+        "support": 25
+      },
+      "technology": {
+        "precision": 0.6944444444444444,
+        "recall": 1.0,
+        "f1": 0.819672131147541,
+        "support": 25
+      },
+      "politics/government": {
+        "precision": 0.7916666666666666,
+        "recall": 0.76,
+        "f1": 0.7755102040816326,
+        "support": 25
+      },
+      "health/medicine": {
+        "precision": 0.9130434782608695,
+        "recall": 0.84,
+        "f1": 0.875,
+        "support": 25
+      },
+      "economy/finance": {
+        "precision": 1.0,
+        "recall": 0.52,
+        "f1": 0.6842105263157895,
+        "support": 25
+      },
+      "environment/climate": {
+        "precision": 0.7727272727272727,
+        "recall": 0.68,
+        "f1": 0.723404255319149,
+        "support": 25
+      },
+      "history": {
+        "precision": 0.7692307692307693,
+        "recall": 0.8,
+        "f1": 0.7843137254901961,
+        "support": 25
+      },
+      "general knowledge": {
+        "precision": 0.48484848484848486,
+        "recall": 0.64,
+        "f1": 0.5517241379310345,
+        "support": 25
+      }
+    },
+    "macro_f1": 0.7440085745698115,
+    "micro_f1": 0.7422222222222222,
+    "accuracy": 0.7422222222222222,
+    "coverage": 0.8533333333333334,
+    "confusion_matrix": {
+      "labels": [
+        "science",
+        "maths",
+        "technology",
+        "politics/government",
+        "health/medicine",
+        "economy/finance",
+        "environment/climate",
+        "history",
+        "general knowledge"
+      ],
+      "matrix": [
+        [
+          20,
+          0,
+          1,
+          0,
+          0,
+          0,
+          2,
+          1,
+          1
+        ],
+        [
+          1,
+          16,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          7
+        ],
+        [
+          0,
+          0,
+          25,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1,
+          19,
+          1,
+          0,
+          0,
+          3,
+          1
+        ],
+        [
+          3,
+          0,
+          0,
+          0,
+          21,
+          0,
+          0,
+          0,
+          1
+        ],
+        [
+          0,
+          0,
+          1,
+          2,
+          0,
+          13,
+          0,
+          2,
+          7
+        ],
+        [
+          3,
+          0,
+          4,
+          1,
+          0,
+          0,
+          17,
+          0,
+          0
+        ],
+        [
+          2,
+          0,
+          2,
+          1,
+          0,
+          0,
+          0,
+          20,
+          0
+        ],
+        [
+          3,
+          0,
+          1,
+          1,
+          1,
+          0,
+          3,
+          0,
+          16
+        ]
+      ]
+    }
+  },
+  "high_threshold": {
+    "per_class": {
+      "science": {
+        "precision": 0.7142857142857143,
+        "recall": 0.2,
+        "f1": 0.3125,
+        "support": 25
+      },
+      "maths": {
+        "precision": 1.0,
+        "recall": 0.24,
+        "f1": 0.3870967741935484,
+        "support": 25
+      },
+      "technology": {
+        "precision": 0.8846153846153846,
+        "recall": 0.92,
+        "f1": 0.9019607843137255,
+        "support": 25
+      },
+      "politics/government": {
+        "precision": 1.0,
+        "recall": 0.12,
+        "f1": 0.21428571428571427,
+        "support": 25
+      },
+      "health/medicine": {
+        "precision": 0.9473684210526315,
+        "recall": 0.72,
+        "f1": 0.8181818181818182,
+        "support": 25
+      },
+      "economy/finance": {
+        "precision": 0.9285714285714286,
+        "recall": 0.52,
+        "f1": 0.6666666666666666,
+        "support": 25
+      },
+      "environment/climate": {
+        "precision": 1.0,
+        "recall": 0.52,
+        "f1": 0.6842105263157895,
+        "support": 25
+      },
+      "history": {
+        "precision": 0.9444444444444444,
+        "recall": 0.68,
+        "f1": 0.7906976744186046,
+        "support": 25
+      },
+      "general knowledge": {
+        "precision": 0.20168067226890757,
+        "recall": 0.96,
+        "f1": 0.3333333333333333,
+        "support": 25
+      }
+    },
+    "macro_f1": 0.5676592546343557,
+    "micro_f1": 0.5422222222222223,
+    "accuracy": 0.5422222222222223,
+    "coverage": 0.4711111111111111,
+    "confusion_matrix": {
+      "labels": [
+        "science",
+        "maths",
+        "technology",
+        "politics/government",
+        "health/medicine",
+        "economy/finance",
+        "environment/climate",
+        "history",
+        "general knowledge"
+      ],
+      "matrix": [
+        [
+          5,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1,
+          19
+        ],
+        [
+          0,
+          6,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          19
+        ],
+        [
+          0,
+          0,
+          23,
+          0,
+          0,
+          0,
+          0,
+          0,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          3,
+          1,
+          1,
+          0,
+          0,
+          20
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          18,
+          0,
+          0,
+          0,
+          7
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          13,
+          0,
+          0,
+          12
+        ],
+        [
+          1,
+          0,
+          2,
+          0,
+          0,
+          0,
+          13,
+          0,
+          9
+        ],
+        [
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          17,
+          7
+        ],
+        [
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          24
+        ]
+      ]
+    }
+  }
+}
