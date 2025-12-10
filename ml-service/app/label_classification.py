@@ -100,7 +100,7 @@ def label(text, max_chars=500, top_k=2, score_threshold=0.2, batch_size=16, THRE
 
     for i, s in enumerate(sentences):
         if health_matches[i]:
-            sentence_classifications[i] = ("health/medicine", 0.99)
+            sentence_classifications[i] = ("health/medicine", 0.85)
 
     for idx, result in zip(to_classify_idx, results):
         top_label = result["labels"][0]
