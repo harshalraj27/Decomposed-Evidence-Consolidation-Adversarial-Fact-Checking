@@ -9,7 +9,7 @@ import logging
 from .build_index import add_faiss_index, get_faiss_index
 from .config import metas_file, raw_dir
 from .schemas import SuccessResponse, ErrorResponse
-from .search import load_id_to_meta
+from .local_search import load_id_to_meta
 
 nlp = spacy.load("en_core_web_sm")
 logger = logging.getLogger(__name__)
@@ -92,7 +92,7 @@ def build_metadata(content, file_name, file_type):
             message=f"Failed to process {file_name}: {str(e)}",
             error_type="system"
         )
-
+"""
 def upload_file(content, file_name, file_type):
     logger.info(f"Starting upload process for {file_name}")
 
@@ -108,7 +108,7 @@ def upload_file(content, file_name, file_type):
 
         if error is not None:
             logger.error(f"Metadata processing failed for {file_name}: {error.message}")
-            return error
+            raise error.to_http_exception()
 
         if metadata:
             try:
@@ -145,6 +145,7 @@ def upload_file(content, file_name, file_type):
             message=f"Upload failed: {str(e)}",
             error_type="system"
         )
+"""
 
 def initialize_metadata():
     files = [f for f in raw_dir.iterdir() if f.suffix.lower() in [".txt", ".md"]]

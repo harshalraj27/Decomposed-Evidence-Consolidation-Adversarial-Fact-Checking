@@ -5,9 +5,18 @@ import numpy as np
 import faiss
 from pathlib import Path
 
-from .config import model_name, metas_file, faiss_index
+from .config import gte, metas_file, faiss_index
 
-model = SentenceTransformer(model_name)
+model = SentenceTransformer(gte)
+
+def get_faiss_index():
+    global index
+    if index is None:
+        if Path(faiss_index).exists():
+            index = faiss.read_index(str(faiss_index))
+        else:
+            initialize_faiss_index()
+    return index
 
 def add_faiss_index(metadata):
     global index
@@ -15,7 +24,7 @@ def add_faiss_index(metadata):
         index = get_faiss_index()
 
     text = [s['sentence'] for s in metadata]
-    ids = np.array([s['id'] for s in metadata], dtype=np.int64)
+    ids = np.array([int(s['id']) for s in metadata], dtype=np.int64)
 
     embeddings = model.encode(text)
     embeddings = normalize(embeddings, norm="l2").astype("float32")
@@ -29,7 +38,7 @@ def initialize_faiss_index():
             json_data.append(json.loads(line))
 
     text = [s['sentence'] for s in json_data]
-    ids = np.array([s['id'] for s in json_data], dtype=np.int64)
+    ids = np.array([int(s['id']) for s in metadata], dtype=np.int64)
 
     embeddings = model.encode(text)
     embeddings = normalize(embeddings, norm="l2").astype("float32")
@@ -43,15 +52,6 @@ def initialize_faiss_index():
     faiss.write_index(index, str(faiss_index))
 
 index = None
-
-def get_faiss_index():
-    global index
-    if index is None:
-        if Path(faiss_index).exists():
-            index = faiss.read_index(str(faiss_index))
-        else:
-            initialize_faiss_index()
-    return index
 
 if not Path(faiss_index).exists():
     initialize_faiss_index()

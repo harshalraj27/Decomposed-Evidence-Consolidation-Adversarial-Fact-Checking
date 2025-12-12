@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Query, File, UploadFile
 from pathlib import Path
 import logging
-from .search import search_query
+from .local_search import search_query
 from .build_metadata import upload_file
 from .schemas import SuccessResponse, ErrorResponse, handle_response, SearchResponse
 

@@ -1,5 +1,7 @@
 {
-  "model_name": "sentence-transformers/multi-qa-mpnet-base-dot-v1",
+  "mpnet-base": "sentence-transformers/multi-qa-mpnet-base-dot-v1",
+  "E5-large": "intfloat/e5-large",
+  "gte-large": "thenlper/gte-large",
   "faiss_index_path": "data/index.faiss",
   "metas_path" : "data/metas.jsonl",
   "raw_data_path": "data/raw/",

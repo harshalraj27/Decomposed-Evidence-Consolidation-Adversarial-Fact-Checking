@@ -4,12 +4,15 @@ from pathlib import Path
 with open(Path(__file__).parent / 'config.json', 'r', encoding='utf-8') as f:
     cfg = json.load(f)
 
-model_name = cfg['model_name']
+mpnet_base = cfg['mpnet-base']
+e5 = cfg['E5-large']
+gte = cfg['gte-large']
+
 metas_file = Path(cfg['metas_path'])
 faiss_index = Path(cfg['faiss_index_path'])
 raw_dir = Path(cfg['raw_data_path'])
 
-top_k = cfg.get('top_k', 5)
+topk = cfg.get('top_k', 100)
 
 label_eval_dir = Path(cfg['label_eval_path'])
 label_test_file = Path(cfg.get('label_test_file', cfg.get('label_test')))
