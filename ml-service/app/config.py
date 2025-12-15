@@ -10,7 +10,10 @@ gte = cfg['gte-large']
 
 metas_file = Path(cfg['metas_path'])
 faiss_index = Path(cfg['faiss_index_path'])
-raw_dir = Path(cfg['raw_data_path'])
+local_dir = Path(cfg['local_files_path'])
+ingested_dir = Path(cfg['ingested_files_path'])
+ingested_meta_dir = Path(cfg['ingested_files_meta_path'])
+ingested_pdf_dir = Path(cfg['ingested_pdf_path'])
 
 topk = cfg.get('top_k', 100)
 

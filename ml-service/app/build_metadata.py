@@ -7,7 +7,7 @@ import threading
 import logging
 
 from .build_index import add_faiss_index, get_faiss_index
-from .config import metas_file, raw_dir
+from .config import metas_file, local_dir, ingested_dir
 from .schemas import SuccessResponse, ErrorResponse
 from .local_search import load_id_to_meta
 
@@ -27,9 +27,19 @@ def get_new_id():
                 max_id = max(max_id, data.get("id", 0))
         return max_id + 1
 
-def build_metadata(content, file_name, file_type):
+def build_metadata(content, file_name, file_type, source_type = None, credibility = None):
     metadata = []
     current_id = get_new_id()
+    if source_type is None:
+        if("wikipedia" in file_name):
+            source_type = "wikipedia"
+            credibility = 'medium'
+        elif("arxiv" in file_name):
+            source_type = "arxiv"
+            credibility = 'high'
+        elif("news" in file_name):
+            source_type = "news"
+            credibility = 'low'
     try:
         if file_type in [".txt", ".md"]:
             doc = nlp(content)
@@ -41,7 +51,9 @@ def build_metadata(content, file_name, file_type):
                     "id": current_id,
                     "file_name": file_name,
                     "position": pos,
-                    "sentence": sent
+                    "sentence": sent,
+                    "source_type": source_type,
+                    "credibility": credibility
                 })
                 current_id+=1
 
@@ -71,7 +83,9 @@ def build_metadata(content, file_name, file_type):
                         "id": current_id,
                         "file_name": file_name,
                         "position": sent_pos,
-                        "sentence": sent_text
+                        "sentence": sent_text,
+                        "source_type": source_type,
+                        "credibility": credibility
                     })
                     current_id += 1
         else:
@@ -148,7 +162,7 @@ def upload_file(content, file_name, file_type):
 """
 
 def initialize_metadata():
-    files = [f for f in raw_dir.iterdir() if f.suffix.lower() in [".txt", ".md"]]
+    files = [f for f in local_dir.iterdir() if f.suffix.lower() in [".txt", ".md"]]
 
     i = 0
     metadata = []
@@ -173,7 +187,7 @@ def initialize_metadata():
             })
             i+=1
 
-    csv_files = [f for f in raw_dir.iterdir() if f.suffix.lower() in [".csv"]]
+    csv_files = [f for f in local_dir.iterdir() if f.suffix.lower() in [".csv"]]
     for file in csv_files:
         try:
             df = pd.read_csv(file, encoding="utf-8", on_bad_lines="skip")
