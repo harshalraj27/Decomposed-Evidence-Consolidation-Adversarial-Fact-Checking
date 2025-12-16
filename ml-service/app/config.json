@@ -10,5 +10,7 @@
   "label_eval_path": "data/evaluations/label_classification/",
   "ingested_files_path": "data/ingested/",
   "ingested_files_meta_path":"data/ingested/metadata/",
-  "ingested_pdf_path": "data/ingested/pdf/"
+  "ingested_pdf_path": "data/ingested/pdf/",
+  "ingested_raw_path": "data/ingested/raw/",
+  "ingested_cleaned_path": "data/ingested/cleaned/"
 }

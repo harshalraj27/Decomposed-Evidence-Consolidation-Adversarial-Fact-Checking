@@ -62,7 +62,7 @@ def arxiv_ingestion(categories):
             }
 
             try:
-                result.download_pdf(dirpath=ingested_dir)
+                result.download_pdf(dirpath=ingested_pdf_dir)
 
                 meta_path = ingested_meta_dir / f"arxiv_{arxiv_id}.meta.json"
                 with open(meta_path, "w", encoding="utf-8") as f:
