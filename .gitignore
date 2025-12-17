@@ -70,9 +70,10 @@ ml-service/data/metas.jsonl
 ml-service/data/doc_index.json
 ml-service/data/cache/
 
-# Allow only tiny sample data
-ml-service/data/local_curated/*
-!ml-service/data/local_curated/sample*.txt
+# Ingested online data
+ml-service/data/ingested/
+ml-service/data/ingested/**
+
 
 # ----------------------------
 # NODE BACKEND (backend/)

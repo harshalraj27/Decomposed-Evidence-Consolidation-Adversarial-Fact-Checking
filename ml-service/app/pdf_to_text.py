@@ -1,16 +1,15 @@
-from pathlib import Path
-import json
 import re
+import json
 import logging
-
 import spacy
+
 from pdfminer.high_level import extract_text
 
 from .build_metadata import build_metadata
-from .config import ingested_pdf_dir, ingested_meta_dir
+from .config import *
 
 logger = logging.getLogger(__name__)
-nlp = spacy.load("en_core_web_sm")
+nlp = spacy.load("en_core_web_lg")
 
 def pdf_to_text_and_metadata(arxiv_id: str):
     pdf_path = ingested_pdf_dir / f"arxiv_{arxiv_id}.pdf"
@@ -19,6 +18,7 @@ def pdf_to_text_and_metadata(arxiv_id: str):
     if not pdf_path.exists() or not meta_path.exists():
         logger.warning(f"Missing files for {arxiv_id}")
         return
+
     with open(meta_path, "r", encoding="utf-8") as f:
         doc_meta = json.load(f)
 
@@ -32,16 +32,14 @@ def pdf_to_text_and_metadata(arxiv_id: str):
         logger.warning(f"Too little text extracted for {arxiv_id}")
         return
 
-    text = raw_text
+    raw_path = ingested_raw_dir / f"arxiv_{arxiv_id}.raw.txt"
+    with open(raw_path, "w", encoding="utf-8") as f:
+        f.write(raw_text)
 
-    # normalize whitespace
+    text = raw_text
     text = re.sub(r"\n{3,}", "\n\n", text)
     text = re.sub(r"[ \t]+", " ", text)
-
-    # remove page numbers
     text = re.sub(r"\n\d+\n", "\n", text)
-
-    # merge broken lines
     text = re.sub(r"(?<!\n)\n(?!\n)", " ", text)
 
     PRUNE_MARKERS = [
@@ -58,16 +56,18 @@ def pdf_to_text_and_metadata(arxiv_id: str):
             text = text[:idx]
             break
 
+    cleaned_doc_path = ingested_cleaned_dir / f"arxiv_{arxiv_id}.clean.txt"
+    with open(cleaned_doc_path, "w", encoding="utf-8") as f:
+        f.write(text)
+
     doc = nlp(text)
     sentences = [sent.text.strip() for sent in doc.sents]
 
     clean_sentences = []
 
     for s in sentences:
-        # basic normalization
         s = re.sub(r"\s+", " ", s).strip()
 
-        # filters
         if len(s.split()) < 5 or len(s.split()) > 60:
             continue
         if not re.search(r"[a-zA-Z]", s):
@@ -77,7 +77,7 @@ def pdf_to_text_and_metadata(arxiv_id: str):
         if re.match(r"^\(?\d+[\]\)]?$", s):
             continue
 
-    clean_sentences.append(s)
+        clean_sentences.append(s)
 
     if not clean_sentences:
         logger.warning(f"No usable sentences for {arxiv_id}")
@@ -89,6 +89,6 @@ def pdf_to_text_and_metadata(arxiv_id: str):
         file_type=".pdf",
         source_type=doc_meta["source_type"],
         credibility=doc_meta["credibility"],
-        extra_meta=doc_meta
+        extra_meta=doc_meta,
+        already_split=True
     )
-

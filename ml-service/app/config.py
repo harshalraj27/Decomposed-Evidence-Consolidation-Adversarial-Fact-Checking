@@ -4,6 +4,10 @@ from pathlib import Path
 with open(Path(__file__).parent / 'config.json', 'r', encoding='utf-8') as f:
     cfg = json.load(f)
 
+M = 32
+efConstruction = 200
+efSearch = 64
+
 mpnet_base = cfg['mpnet-base']
 e5 = cfg['E5-large']
 gte = cfg['gte-large']
@@ -27,3 +31,4 @@ labels = ['science', 'maths', 'technology', 'politics/government', 'health/medic
 
 threshold = 0.3
 device = 0
+wiki_language = 'en'

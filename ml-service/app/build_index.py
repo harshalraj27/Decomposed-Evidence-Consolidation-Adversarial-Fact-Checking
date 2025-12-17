@@ -1,41 +1,42 @@
-from sentence_transformers import SentenceTransformer
 import json
-from sklearn.preprocessing import normalize
-import numpy as np
-import faiss
 from pathlib import Path
 
-from .config import gte, metas_file, faiss_index
+import numpy as np
+import faiss
+from sentence_transformers import SentenceTransformer
+from sklearn.preprocessing import normalize
+
+from .config import *
 
 model = SentenceTransformer(gte)
 
 index = None
 
-
 def initialize_faiss_index():
     global index
 
-    json_data = []
+    texts = []
+    ids = []
+
     with open(metas_file, "r", encoding="utf-8") as f:
         for line in f:
-            json_data.append(json.loads(line))
+            data = json.loads(line)
+            texts.append(data["sentence"])
+            ids.append(int(data["id"]))
 
-    if not json_data:
+    if not texts:
         raise ValueError("Metadata file is empty, cannot build FAISS index")
 
-    text = [s["sentence"] for s in json_data]
-    ids = np.array([int(s["id"]) for s in json_data], dtype=np.int64)
-
-    embeddings = model.encode(text, show_progress_bar=False)
+    embeddings = model.encode(texts, show_progress_bar=True)
     embeddings = normalize(embeddings, norm="l2").astype("float32")
 
     d = embeddings.shape[1]
-    base_index = faiss.IndexFlatIP(d)
+
+    base_index = faiss.IndexHNSWFlat(d, M, faiss.METRIC_INNER_PRODUCT)
     index = faiss.IndexIDMap(base_index)
 
-    index.add_with_ids(embeddings, ids)
+    index.add_with_ids(embeddings, np.array(ids, dtype=np.int64))
     faiss.write_index(index, str(faiss_index))
-
 
 def get_faiss_index():
     global index
@@ -50,16 +51,18 @@ def get_faiss_index():
 
     return index
 
-
 def add_faiss_index(metadata):
     global index
 
+    if not metadata:
+        return
+
     index = get_faiss_index()
 
-    text = [s["sentence"] for s in metadata]
-    ids = np.array([int(s["id"]) for s in metadata], dtype=np.int64)
+    texts = [m["sentence"] for m in metadata]
+    ids = np.array([int(m["id"]) for m in metadata], dtype=np.int64)
 
-    embeddings = model.encode(text, show_progress_bar=False)
+    embeddings = model.encode(texts, show_progress_bar=False)
     embeddings = normalize(embeddings, norm="l2").astype("float32")
 
     index.add_with_ids(embeddings, ids)
