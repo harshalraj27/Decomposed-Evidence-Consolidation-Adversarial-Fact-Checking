@@ -5,6 +5,7 @@ import numpy as np
 from sentence_transformers import SentenceTransformer
 from sklearn.preprocessing import normalize
 
+from .reranker import reranker
 from .build_index import get_faiss_index
 from .config import gte, metas_file, topk
 from .schemas import ErrorResponse
@@ -62,18 +63,22 @@ def search(subclaim: str, top_k: int = None):
         D, I = index.search(query_embeddings, top_k)
         results = []
 
-        for idx, score in zip(I[0], D[0]):
+        for rank, (idx, score) in enumerate(zip(I[0], D[0]), start=1):
             if idx == -1:
                 continue
             meta = id_to_meta.get(int(idx))
             if meta is None:
                 meta = {"sentence": "Not found", "doc_id": None, "position": None}
+            faiss_rank = rank
             results.append({
                 "id": int(idx),
-                "score": float(score),
+                "faiss_score": float(score),
+                "faiss_rank": faiss_rank,
                 **meta
             })
-        return results
+
+        re_ranked_results = reranker(subclaim, results)
+        return re_ranked_results
 
     except Exception as e:
         logger.error(f"Search query failed: {e}")

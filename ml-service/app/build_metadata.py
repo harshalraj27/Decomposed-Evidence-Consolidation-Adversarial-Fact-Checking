@@ -12,7 +12,7 @@ import re
 from .build_index import add_faiss_index, get_faiss_index
 from .config import metas_file, local_dir, ingested_dir
 from .schemas import SuccessResponse, ErrorResponse
-from .local_search import load_id_to_meta
+from .search import load_id_to_meta
 
 nlp = spacy.load("en_core_web_lg")
 logger = logging.getLogger(__name__)
