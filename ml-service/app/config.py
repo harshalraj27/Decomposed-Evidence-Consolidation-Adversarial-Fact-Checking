@@ -16,6 +16,7 @@ e5 = cfg["E5-large"]
 gte = cfg["gte-large"]
 ms_marco_6 = cfg["ms-marco-6"]
 ms_marco_12 = cfg["ms-marco-12"]
+roberta_large = cfg["roberta-large"]
 
 metas_file = BASE_DIR / cfg["metas_path"]
 faiss_index = BASE_DIR / cfg["faiss_index_path"]
@@ -47,3 +48,6 @@ labels = [
 threshold = 0.3
 device = 0
 wiki_language = "en"
+support_threshold = 0.6
+contradict_threshold = 0.6
+delta = 0.2
