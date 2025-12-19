@@ -18,6 +18,8 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
 model.eval()
 
+
+
 def stance_score(subclaim, evidence):
     inputs = tokenizer(evidence, subclaim, truncation=True,
                        padding=True, return_tensors="pt").to(device)

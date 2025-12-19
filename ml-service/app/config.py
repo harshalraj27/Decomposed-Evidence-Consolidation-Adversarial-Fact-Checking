@@ -32,6 +32,7 @@ topk = cfg.get("top_k", 100)
 
 label_eval_dir = BASE_DIR / cfg["label_eval_path"]
 label_test_file = BASE_DIR / cfg.get("label_test_file", cfg.get("label_test"))
+stance_eval_dir = BASE_DIR / cfg["stance_eval_path"]
 
 labels = [
     "science",

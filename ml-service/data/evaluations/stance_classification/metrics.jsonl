@@ -1,0 +1,1 @@
+{"primary_metric": "f1_macro", "f1_macro": 0.7527777777777778, "precision_macro": 0.7390269151138716, "recall_macro": 0.8065826330532214, "accuracy": 0.78, "confusion_matrix": [[4, 0, 1], [1, 16, 0], [2, 7, 19]], "labels": ["support", "contradict", "neutral"]}

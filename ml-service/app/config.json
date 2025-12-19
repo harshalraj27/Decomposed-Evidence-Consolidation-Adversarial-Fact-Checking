@@ -15,5 +15,6 @@
   "ingested_files_meta_path":"data/ingested/metadata/",
   "ingested_pdf_path": "data/ingested/pdf/",
   "ingested_raw_path": "data/ingested/raw/",
-  "ingested_cleaned_path": "data/ingested/cleaned/"
+  "ingested_cleaned_path": "data/ingested/cleaned/",
+  "stance_eval_path": "data/evaluations/stance_classification/"
 }
