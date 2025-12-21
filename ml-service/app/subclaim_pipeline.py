@@ -1,33 +1,58 @@
-from .config import *
 from .search import search
 from .reranker import reranker
 from .stance_classifier import stance_score
+from .stance_aggregator import aggregate_evidences
+from .subclaim_verdict import get_verdict, get_controversy
 
-subclaim = "Self-attention replaced recurrence in NLP models"
+def run_subclaim_pipeline(subclaim, top_k=20, top_n=10):
+    retrieved = search(subclaim, top_k=top_k)
 
-retrieved = search(subclaim, top_k=20)
-print("RETRIEVED:", len(retrieved))
+    reranked = reranker(subclaim, retrieved, top_n=top_n)
 
-for e in retrieved[:5]:
-    print("----")
-    print("Keys in retrieved item:", retrieved[0].keys())
-    print("Sentence:", e["sentence"])
-    print("FAISS score:", e["faiss_score"])
-    print("Source:", e["source_type"])
+    stance_results = []
+    for e in reranked:
+        probs = stance_score(subclaim, e["sentence"])
+        e["probs"] = probs
+        stance_results.append(e)
 
-reranked = reranker(subclaim, retrieved, top_n=10)
-print("\nRERANKED:")
+    aggregated = aggregate_evidences(stance_results)
 
-for e in reranked:
-    print("----")
-    print("Sentence:", e["sentence"])
-    print("FAISS:", e["faiss_score"])
-    print("Rerank:", e["rerank_score"])
+    verdict, total, support, contradict = get_verdict(aggregated)
+    controversial = get_controversy(aggregated, verdict)
 
-print("\nSTANCE RESULTS:")
-for e in reranked:
-    stance, probs = stance_score(subclaim, e["sentence"])
-    print("----")
-    print("Sentence:", e["sentence"])
-    print("Stance:", stance)
-    print("Probs:", probs)
+    return {
+        "subclaim": subclaim,
+        "verdict": verdict,
+        "controversial": controversial,
+        "strengths": {
+            "support": support,
+            "contradict": contradict,
+            "total": total
+        },
+        "evidence": {
+            "supporting": aggregated["supporting"],
+            "contradicting": aggregated["contradicting"],
+            "neutral": aggregated["neutral"]
+        }
+    }
+
+if __name__ == "__main__":
+    res = run_subclaim_pipeline(
+        "Self-attention replaced recurrence in NLP models"
+    )
+
+    print("VERDICT:", res["verdict"])
+    print("CONTROVERSIAL:", res["controversial"])
+    print("STRENGTHS:", res["strengths"])
+
+    print("\nSUPPORTING:")
+    for e in res["evidence"]["supporting"][:3]:
+        print("-", e["sentence"][:120])
+
+    print("\nCONTRADICTING:")
+    for e in res["evidence"]["contradicting"][:3]:
+        print("-", e["sentence"][:120])
+
+    print("\nNEUTRAL:")
+    for e in res["evidence"]["neutral"][:3]:
+        print("-", e["sentence"][:120])

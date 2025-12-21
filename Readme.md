@@ -1,171 +1,295 @@
-# Interactive Fact-Anchor
+# Decomposed-Evidence-Consolidation-Adversarial-Fact-Checking
 
-**A lightweight research companion that finds, ranks, and inserts verifiable evidence for claims — instantly.**
+## Overview
 
-Highlight a sentence or type a claim, click *Find Evidence*, and get short, source-linked snippets you can insert into your draft with one click.
+This project implements a **decomposed, evidence-driven, adversarial fact-checking system** that verifies complex claims by breaking them into atomic subclaims and reasoning over competing evidence.
 
-## Why This Exists
+Instead of relying on single top-k evidence or collapsing predictions early, the system treats fact-checking as an **adversarial process** where *supporting and contradicting evidence explicitly compete*. Final decisions are made only after aggregating these opposing signals.
 
-Writers, researchers, and editors spend hours hunting for reliable citations. This tool dramatically shortens that research loop by combining sentence-level embeddings with vector search to surface concise, high-quality evidence with full provenance.
-
-**Who should care:**
-- Journalists and fact-checkers who need fast, traceable evidence
-- Academics and students who want quick access to source sentences and citations
-- Product teams building writing/editing tools with verifiable content features
-- Engineers looking to learn and ship a full-stack information retrieval + embeddings pipeline
-
-## Core Features
-
-### Highlight-to-Search
-Select any sentence in the editor and fetch the top matching evidence snippets from a curated corpus.
-
-### Sentence-Level Provenance
-Each result returns the exact sentence, source title, link, confidence score, and a short rationale for why it matched.
-
-### Insert Citation
-Insert a formatted in-text citation at the cursor (or append) with one click.
-
-### Local, Audit-Friendly Corpus
-Uses a curated set of Wikipedia pages and reputable news RSS feeds. All source text is stored locally for verifiable provenance.
-
-### Fast, Explainable Retrieval
-- SBERT embeddings + FAISS vector search 
-- Lightweight lexical re-ranking 
-- Optional cross-encoder re-ranker
-- Target: <1s search latency
-
-### Deployable Stack
-Containerized services (frontend, app-backend, ML microservice) for easy local development and cloud deployment.
-
-## Architecture
-
-```
-┌─────────────────┐    ┌─────────────────┐    ┌─────────────────┐
-│   React App     │    │  Node.js API    │    │ Python ML API   │
-│   (Frontend)    │◄──►│   (Backend)     │◄──►│  (Embeddings)   │
-└─────────────────┘    └─────────────────┘    └─────────────────┘
-                                │                        │
-                       ┌─────────────────┐    ┌─────────────────┐
-                       │ SQLite/MongoDB  │    │  FAISS Index    │
-                       │   (Metadata)    │    │   (Vectors)     │
-                       └─────────────────┘    └─────────────────┘
-```
-
-**Technology Stack:**
-- Frontend: React + TypeScript (contenteditable-based editor)
-- App backend: Node.js + Express (API, caching, persistence)
-- AI microservice: Python + PyTorch (sentence-transformers) + FastAPI
-- Vector store: FAISS (local index)
-- Metadata store: SQLite or MongoDB (optional)
-- Dev & deploy: Docker / docker-compose; deployable to Render, Railway, or Vercel
-
-## Getting Started
-
-### Prerequisites
-- Docker and docker-compose
-- Node.js 18+
-- Python 3.9+
-
-### Quick Start
-```bash
-# Clone the repo
-git clone https://github.com/yourusername/interactive-fact-anchor.git
-cd interactive-fact-anchor
-
-# Start all services
-docker-compose up -d
-
-# Index a small seed corpus (Wikipedia + news RSS)
-docker-compose exec ml-service python scripts/build_corpus.py
-
-# Open the editor
-open http://localhost:3000
-```
-
-### Try It Out
-1. Type or paste some text into the editor
-2. Highlight any sentence you want to fact-check
-3. Click "Find Evidence"
-4. Review the ranked results with confidence scores
-5. Click "Insert Citation" to add a reference
-
-## Evaluation Goals
-
-**Target Metrics:**
-- Precision@1: >60% on a 20-claim test set
-- Precision@3: >70% on a 20-claim test set
-- Search latency: <1s for pre-computed embeddings
-
-**Demo Goal:**
-2-minute video showing the complete writer workflow from highlight to citation.
-
-## Configuration
-
-Basic configuration through environment variables:
-
-```bash
-# .env
-PORT=8000
-NODE_ENV=development
-DATABASE_URL=sqlite:./data/app.db
-
-# .env.ml  
-ML_SERVICE_PORT=8001
-MODEL_NAME=sentence-transformers/all-MiniLM-L6-v2
-FAISS_INDEX_PATH=./data/faiss.index
-```
-
-## Development
-
-### Local Development
-```bash
-# Frontend
-cd frontend && npm install && npm run dev
-
-# Backend
-cd backend && npm install && npm run dev
-
-# ML Service  
-cd ml-service && pip install -r requirements.txt && uvicorn main:app --reload
-```
-
-### Adding New Sources
-1. Add a crawler in `ml-service/crawlers/`
-2. Update corpus config
-3. Rebuild the index: `python scripts/build_index.py`
-
-## Deployment
-
-### Simple Deploy Options
-- **Railway**: `railway up` (recommended for MVP)
-- **Render**: Connect GitHub repo, configure services
-- **Self-hosted**: `docker-compose -f docker-compose.prod.yml up`
-
-## Contributing
-
-This is an early-stage project. Contributions welcome!
-
-1. Fork the repo
-2. Create a feature branch
-3. Make changes and add tests
-4. Submit a pull request
-
-**Areas that need help:**
-- Additional citation formats (APA, Chicago)
-- Mobile-responsive editor improvements
-- Performance optimizations
-- Documentation improvements
-
-## Project Status
-
-Currently in active development. Building toward first stable release with core highlight-to-search functionality.
-
-## Acknowledgments
-
-- [sentence-transformers](https://github.com/UKPLab/sentence-transformers) for embedding models
-- [FAISS](https://github.com/facebookresearch/faiss) for vector similarity search
-- The open-source community for foundational tools
+The system is modular, interpretable, and designed for research-oriented analysis rather than black-box prediction.
 
 ---
 
-**Built for writers, researchers, and anyone who values accuracy and transparency.**
+## Core Idea
+
+**Fact-checking is framed as adversarial evidence consolidation.**
+
+For each subclaim:
+- evidence is evaluated for both *support* and *contradiction*
+- opposing signals are aggregated and allowed to cancel each other
+- unresolved disagreement is surfaced instead of hidden
+
+This makes the system conservative, transparent, and suitable for controlled experimentation.
+
+---
+
+## High-Level Architecture
+
+```
+Claim 
+  → Decomposer 
+  → Subclaims 
+  → Subclaim Pipeline 
+      → Retrieval 
+      → Reranking 
+      → NLI Stance Scoring 
+      → Evidence Aggregation 
+      → Subclaim Verdict + Controversy 
+  → Claim-Level Aggregation 
+  → Final Claim Verdict
+```
+
+Each stage is implemented as a separate module with a clear responsibility.
+
+---
+
+## Claim Decomposer
+
+### Purpose
+
+The decomposer converts a **complex claim** into a small set of **atomic, independently verifiable subclaims**.
+
+**Example:**
+
+**Claim:**
+> Transformers replaced recurrent models and improved NLP performance.
+
+**Subclaims:**
+- Self-attention replaced recurrence in NLP architectures
+- Transformers enabled better parallelization
+- Transformers improved performance over RNN-based models
+
+### Design
+
+- Produces short declarative subclaims
+- No retrieval or verification at this stage
+- Designed to be replaceable (prompt-based now, trainable later)
+
+The decomposer defines the **reasoning granularity** of the system.
+
+---
+
+## Subclaim Verification Pipeline
+
+Each subclaim is verified independently using the same pipeline:
+
+```
+Subclaim 
+  → Dense Retrieval (FAISS) 
+  → Cross-Encoder Reranking 
+  → Sentence-Level NLI 
+  → Evidence Aggregation 
+  → Subclaim Verdict + Controversy
+```
+
+---
+
+## Sentence-Level NLI (Stance Scoring)
+
+- Model: `roberta-large-mnli`
+- Input: `(evidence_sentence, subclaim)`
+- Output: soft probabilities over:
+  - support
+  - contradict
+  - neutral
+
+Important design choice:
+- **No hard stance labels are assigned here**
+- All downstream reasoning uses soft probabilities
+
+---
+
+## Evidence Aggregation (Adversarial Core)
+
+This is the central reasoning component.
+
+For each evidence sentence:
+
+```
+stance_score = P(support) − P(contradict)
+weighted_score = stance_score × rerank_score
+```
+
+Aggregation produces:
+- `support_strength`
+- `contradict_strength`
+- `total_strength`
+
+Additional details:
+- Deduplication is done by sentence text
+- Neutral evidences are kept as context but do not add strength
+- Repeated evidence does not inflate signal
+
+This explicitly models **support vs contradiction as opposing forces**.
+
+---
+
+## Subclaim Verdict Logic
+
+Based on aggregated strengths, each subclaim is assigned one of:
+- `SUPPORT`
+- `CONTRADICT`
+- `MIXED`
+- `INCONCLUSIVE`
+
+Decision principles:
+- Weak overall signal → INCONCLUSIVE
+- One side dominates → SUPPORT / CONTRADICT
+- Strong evidence on both sides → MIXED
+
+The verdict depends on **relative dominance**, not absolute thresholds.
+
+---
+
+## Controversy Detection (Adversarial Signal)
+
+Controversy is a **separate signal**, not a verdict.
+
+A subclaim is marked controversial if:
+- verdict is `MIXED`, or
+- both support and contradiction contribute meaningfully
+
+This allows outputs such as:
+> "Mostly supported, but disputed"
+
+Rather than forcing certainty, disagreement is surfaced explicitly.
+
+---
+
+## Subclaim Pipeline Output
+
+For each subclaim, the pipeline returns:
+- verdict
+- controversy flag
+- aggregated strengths
+- grouped evidence:
+  - supporting
+  - contradicting
+  - neutral
+
+Evidence metadata (sentence id, document id, source, credibility) is preserved for higher-level reasoning.
+
+---
+
+## Claim-Level Aggregation
+
+After all subclaims are verified, results are consolidated at the claim level.
+
+Claim-level reasoning considers:
+- number of supported vs contradicted subclaims
+- strength of evidence per subclaim
+- presence of widespread controversy
+- overlap of sources across subclaims
+
+Final claim verdicts follow the same philosophy:
+- dominance-based
+- conservative under uncertainty
+- transparent about disagreement
+
+---
+
+## Why This Is Adversarial Fact-Checking
+
+Unlike confirmation-based systems that search only for supporting evidence, this system:
+- explicitly evaluates evidence for *contradiction*
+- aggregates opposing signals instead of filtering them
+- bases decisions on dominance, not presence
+- exposes unresolved disagreement via a controversy flag
+
+Fact-checking is treated as a **contest between evidence**, not a retrieval task.
+
+---
+
+## Running the System
+
+### Environment Setup
+
+```bash
+python -m venv .venv
+source .venv/bin/activate  # Linux/Mac
+# .venv\Scripts\activate   # Windows
+pip install -r requirements.txt
+```
+
+### Running Subclaim Pipeline
+
+```bash
+python -m app.subclaim_pipeline
+```
+
+Example subclaim:
+```
+Self-attention replaced recurrence in NLP models
+```
+
+Expected behavior:
+- Pipeline runs end-to-end
+- Verdict may be MIXED
+- Controversy may be True
+- Evidence grouped without duplicates
+
+---
+
+## Evaluation Strategy
+
+### Subclaim Level
+
+Manual gold labels for subclaims
+
+Metrics:
+- verdict correctness
+- controversy detection accuracy
+
+Error analysis via confusion matrices
+
+### Claim Level
+
+Qualitative evaluation against known factual claims
+
+Analysis of disagreement patterns
+
+---
+
+## Ablation Studies
+
+Planned and supported ablations include:
+- removing reranker weights
+- using hard sentence labels instead of soft aggregation
+- disabling deduplication
+- limiting evidence to top-k only
+
+These highlight the importance of adversarial aggregation.
+
+---
+
+## Known Limitations
+
+- MNLI models over-predict contradiction
+- Decomposer is prompt-based
+- Deduplication is string-based
+- Claim-level logic is heuristic
+
+These are acknowledged and intentional for research scope.
+
+---
+
+## Future Work
+
+The following are intentionally deferred:
+- CRAG integration
+- adversarial evidence retrieval
+- semantic deduplication
+- joint retriever–reranker training
+- larger-scale automated evaluation
+
+---
+
+## Research Orientation Summary
+
+This project emphasizes:
+- interpretability over black-box accuracy
+- explicit handling of contradiction
+- modular reasoning layers
+- reproducibility and extensibility
+
+It is designed as a foundation for research-grade adversarial fact-checking systems, not as a production QA tool.

@@ -1,7 +1,7 @@
 from .config import *
 
 def aggregate_evidences(stance_results):
-    ids = []
+    seen_sentences = set()
     supporting =[]
     contradicting =[]
     neutral =[]
@@ -12,8 +12,10 @@ def aggregate_evidences(stance_results):
         s = e['probs']['support']
         c = e['probs']['contradict']
 
-        if not id in ids:
-            ids.append(e['id'])
+        sent = e["sentence"].strip()
+
+        if sent not in seen_sentences:
+            seen_sentences.add(sent)
         else:
             continue
 
@@ -38,7 +40,7 @@ def aggregate_evidences(stance_results):
 
     total_strength = support_strength + contradict_strength
 
-    return stance_results, {
+    return {
         "supporting": supporting,
         "contradicting": contradicting,
         "neutral": neutral[:3],

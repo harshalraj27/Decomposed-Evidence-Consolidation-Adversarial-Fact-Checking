@@ -6,19 +6,37 @@ def get_verdict(aggregator_output):
     contradict_strength = aggregator_output['contradict_strength']
 
     if (total_strength < 0.2):
-        label = "INCONCLUSIVE"
+        return "INCONCLUSIVE", total_strength, support_strength, contradict_strength
 
-    if(total_strength>0):
-        support_ratio = support_strength / total_strength
-        contradict_ratio = contradict_strength / total_strength
+    support_ratio = support_strength / total_strength
+    contradict_ratio = contradict_strength / total_strength
 
     if (support_ratio > 0.35 and contradict_ratio > 0.35):
-        label = "MIXED"
+        verdict = "MIXED"
     elif(support_ratio>=0.65):
-        label = "SUPPORT"
+        verdict = "SUPPORT"
     elif(contradict_ratio>=0.65):
-        label = "CONTRADICT"
+        verdict = "CONTRADICT"
     else:
-        label = "INCONCLUSIVE"
+        verdict = "INCONCLUSIVE"
 
-    return label, total_strength, support_strength, contradict_strength
+    return verdict, total_strength, support_strength, contradict_strength
+
+def get_controversy(aggregator_output, verdict):
+    total_strength = aggregator_output["total_strength"]
+    support_strength = aggregator_output["support_strength"]
+    contradict_strength = aggregator_output["contradict_strength"]
+
+    if total_strength <= 0:
+        return False
+
+    support_ratio = support_strength / total_strength
+    contradict_ratio = contradict_strength / total_strength
+
+    if verdict == "MIXED":
+        return True
+
+    if support_ratio > 0.25 and contradict_ratio > 0.25:
+        return True
+
+    return False
