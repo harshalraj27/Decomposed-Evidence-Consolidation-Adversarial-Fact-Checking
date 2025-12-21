@@ -18,8 +18,6 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model.to(device)
 model.eval()
 
-
-
 def stance_score(subclaim, evidence):
     inputs = tokenizer(evidence, subclaim, truncation=True,
                        padding=True, return_tensors="pt").to(device)
@@ -36,10 +34,10 @@ def stance_score(subclaim, evidence):
         for i in range(len(probs))
     }
     labels= {label_mapping[k]: v for k, v in scores.items()}
-    stance = choose_stance(labels)
 
-    return stance, labels
+    return labels
 
+"""
 def choose_stance(labels):
     if(labels["support"]>support_threshold):
         label = "support"
@@ -47,7 +45,6 @@ def choose_stance(labels):
         label = "contradict"
     else:
         label = "neutral"
-        return label
 
     if(label=='support' and labels['support']>support_threshold):
         if(labels['support']-labels['neutral']<delta):
@@ -56,3 +53,4 @@ def choose_stance(labels):
         if(labels['contradict']-labels['neutral']<delta):
             label = "neutral"
     return label
+"""

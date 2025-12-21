@@ -52,3 +52,4 @@ wiki_language = "en"
 support_threshold = 0.6
 contradict_threshold = 0.6
 delta = 0.2
+epsilon = 0.1

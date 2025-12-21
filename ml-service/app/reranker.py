@@ -1,5 +1,3 @@
-# Manual dev script to sanity-check dense search + reranker
-
 import numpy as np
 import logging
 import torch
