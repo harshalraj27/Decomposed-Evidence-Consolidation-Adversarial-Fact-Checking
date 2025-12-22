@@ -5,6 +5,7 @@ from .stance_aggregator import aggregate_evidences
 from .subclaim_verdict import get_verdict, get_controversy
 
 def run_subclaim_pipeline(subclaim, top_k=20, top_n=10):
+    subclaim = subclaim.text
     retrieved = search(subclaim, top_k=top_k)
 
     reranked = reranker(subclaim, retrieved, top_n=top_n)
@@ -35,7 +36,7 @@ def run_subclaim_pipeline(subclaim, top_k=20, top_n=10):
             "neutral": aggregated["neutral"]
         }
     }
-
+"""
 if __name__ == "__main__":
     res = run_subclaim_pipeline(
         "Self-attention replaced recurrence in NLP models"
@@ -56,3 +57,4 @@ if __name__ == "__main__":
     print("\nNEUTRAL:")
     for e in res["evidence"]["neutral"][:3]:
         print("-", e["sentence"][:120])
+"""

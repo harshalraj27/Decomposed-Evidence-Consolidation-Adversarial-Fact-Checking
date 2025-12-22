@@ -1,0 +1,94 @@
+{
+  "decomposer_sanity_set": [
+    {
+      "claim": "Transformers are better than RNNs for NLP tasks.",
+      "expected_subclaims": [
+        "Transformers handle long-range dependencies better than RNNs",
+        "Self-attention scales better than recurrence",
+        "RNNs struggle with vanishing gradients on long sequences"
+      ],
+      "expected_verdict": "DECOMPOSE"
+    },
+    {
+      "claim": "Climate change is the primary cause of the increase in global wildfires.",
+      "expected_subclaims": [
+        "Rising global temperatures increase wildfire risk",
+        "Climate change has increased drought frequency",
+        "Land management and ignition sources also affect wildfire frequency"
+      ],
+      "expected_verdict": "DECOMPOSE"
+    },
+    {
+      "claim": "Large language models can replace human fact-checkers.",
+      "expected_subclaims": [
+        "LLMs can retrieve and summarize evidence",
+        "LLMs can reason over conflicting sources",
+        "LLMs hallucinate and lack true verification mechanisms"
+      ],
+      "expected_verdict": "UNCERTAIN"
+    },
+    {
+      "claim": "Quantum computers will break all modern cryptography.",
+      "expected_subclaims": [
+        "Shor’s algorithm can break RSA and ECC",
+        "Large-scale fault-tolerant quantum computers do not yet exist",
+        "Post-quantum cryptographic schemes exist"
+      ],
+      "expected_verdict": "UNCERTAIN"
+    },
+    {
+      "claim": "Social media usage causes increased anxiety in teenagers.",
+      "expected_subclaims": [
+        "High social media usage correlates with anxiety in teenagers",
+        "Correlation does not imply causation",
+        "Other confounding factors contribute to anxiety"
+      ],
+      "expected_verdict": "DECOMPOSE"
+    },
+    {
+      "claim": "Vaccines significantly reduce the spread of infectious diseases.",
+      "expected_subclaims": [
+        "Vaccines reduce transmission rates",
+        "Herd immunity lowers population-level spread",
+        "Effectiveness varies across diseases and vaccines"
+      ],
+      "expected_verdict": "DECOMPOSE"
+    },
+    {
+      "claim": "Artificial intelligence will eliminate most software engineering jobs.",
+      "expected_subclaims": [
+        "AI automates repetitive coding tasks",
+        "Complex system design still requires humans",
+        "Job roles may shift rather than disappear"
+      ],
+      "expected_verdict": "UNCERTAIN"
+    },
+    {
+      "claim": "Renewable energy alone can meet global energy demand.",
+      "expected_subclaims": [
+        "Renewable energy sources can scale to large capacity",
+        "Energy storage and intermittency remain challenges",
+        "Grid infrastructure limits full adoption"
+      ],
+      "expected_verdict": "DECOMPOSE"
+    },
+    {
+      "claim": "Self-driving cars are safer than human drivers.",
+      "expected_subclaims": [
+        "Autonomous systems reduce human error",
+        "Edge cases still cause autonomous failures",
+        "Safety depends on deployment conditions"
+      ],
+      "expected_verdict": "DECOMPOSE"
+    },
+    {
+      "claim": "Eating late at night causes weight gain.",
+      "expected_subclaims": [
+        "Meal timing affects metabolism",
+        "Total caloric intake matters more than timing",
+        "Scientific evidence is mixed"
+      ],
+      "expected_verdict": "UNCERTAIN"
+    }
+  ]
+}

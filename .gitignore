@@ -74,6 +74,9 @@ ml-service/data/cache/
 ml-service/data/ingested/
 ml-service/data/ingested/**
 
+models/
+*.gguf
+
 
 # ----------------------------
 # NODE BACKEND (backend/)
