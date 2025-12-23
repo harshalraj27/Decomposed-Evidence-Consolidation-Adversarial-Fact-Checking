@@ -14,7 +14,6 @@ class Subclaim:
     type: str
     source_claim: str
 
-
 def normalize(text):
     text = text.strip()
     text = re.sub(r"\s+", " ", text)

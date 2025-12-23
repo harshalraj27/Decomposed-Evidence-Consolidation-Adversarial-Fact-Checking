@@ -1,94 +1,132 @@
 {
   "decomposer_sanity_set": [
     {
-      "claim": "Transformers are better than RNNs for NLP tasks.",
-      "expected_subclaims": [
-        "Transformers handle long-range dependencies better than RNNs",
-        "Self-attention scales better than recurrence",
-        "RNNs struggle with vanishing gradients on long sequences"
-      ],
+      "claim": "Water boils at 100°C and freezes at 0°C at standard pressure.",
       "expected_verdict": "DECOMPOSE"
+    },
+    {
+      "claim": "Paris is the capital of France and has a population over 2 million.",
+      "expected_verdict": "DECOMPOSE"
+    },
+    {
+      "claim": "The Earth orbits the Sun and the Moon orbits the Earth.",
+      "expected_verdict": "DECOMPOSE"
+    },
+    {
+      "claim": "Einstein was born in 1879 and won the Nobel Prize in 1921.",
+      "expected_verdict": "DECOMPOSE"
+    },
+    {
+      "claim": "The restaurant serves Italian food and opens at 6 PM daily.",
+      "expected_verdict": "DECOMPOSE"
+    },
+    {
+      "claim": "The study found exercise improves mood and reduces stress.",
+      "expected_verdict": "DECOMPOSE"
+    },
+    {
+      "claim": "Gold has atomic number 79 and melting point 1064°C.",
+      "expected_verdict": "DECOMPOSE"
+    },
+    {
+      "claim": "Shakespeare wrote Hamlet and was born in Stratford-upon-Avon.",
+      "expected_verdict": "DECOMPOSE"
+    },
+    {
+      "claim": "The Pacific Ocean is the largest ocean and covers 165 million square kilometers.",
+      "expected_verdict": "DECOMPOSE"
+    },
+    {
+      "claim": "Python was created by Guido van Rossum and first released in 1991.",
+      "expected_verdict": "DECOMPOSE"
+    },
+    {
+      "claim": "The Eiffel Tower is 330 meters tall, was completed in 1889, and is located in Paris.",
+      "expected_verdict": "DECOMPOSE"
+    },
+    {
+      "claim": "Amazon was founded by Jeff Bezos in 1994, started as an online bookstore, and is now headquartered in Seattle.",
+      "expected_verdict": "DECOMPOSE"
+    },
+    {
+      "claim": "The human body has 206 bones, 78 organs, and contains approximately 37 trillion cells.",
+      "expected_verdict": "DECOMPOSE"
+    },
+    {
+      "claim": "Mars has two moons named Phobos and Deimos, has a day length of 24.6 hours, and has a surface temperature averaging -60°C.",
+      "expected_verdict": "DECOMPOSE"
+    },
+    {
+      "claim": "The iPhone was announced in 2007, ran iOS, featured a touchscreen interface, and sold 6.1 million units in its first year.",
+      "expected_verdict": "DECOMPOSE"
+    },
+    {
+      "claim": "World War II started in 1939, ended in 1945, involved over 30 countries, and resulted in approximately 70-85 million deaths.",
+      "expected_verdict": "DECOMPOSE"
+    },
+    {
+      "claim": "Bitcoin was created in 2009, uses blockchain technology, has a maximum supply of 21 million coins, is decentralized, and reached an all-time high of over $60,000 in 2021.",
+      "expected_verdict": "DECOMPOSE"
+    },
+    {
+      "claim": "The Great Wall of China is over 21,000 kilometers long, was built over several centuries, employed millions of workers, is visible from low Earth orbit, and is a UNESCO World Heritage site.",
+      "expected_verdict": "DECOMPOSE"
+    },
+    {
+      "claim": "Transformers are better than RNNs for NLP tasks.",
+      "expected_verdict": "NO_DECOMPOSE"
     },
     {
       "claim": "Climate change is the primary cause of the increase in global wildfires.",
-      "expected_subclaims": [
-        "Rising global temperatures increase wildfire risk",
-        "Climate change has increased drought frequency",
-        "Land management and ignition sources also affect wildfire frequency"
-      ],
-      "expected_verdict": "DECOMPOSE"
+      "expected_verdict": "NO_DECOMPOSE"
+    },
+    {
+      "claim": "Python is a popular programming language.",
+      "expected_verdict": "NO_DECOMPOSE"
     },
     {
       "claim": "Large language models can replace human fact-checkers.",
-      "expected_subclaims": [
-        "LLMs can retrieve and summarize evidence",
-        "LLMs can reason over conflicting sources",
-        "LLMs hallucinate and lack true verification mechanisms"
-      ],
-      "expected_verdict": "UNCERTAIN"
+      "expected_verdict": "NO_DECOMPOSE"
     },
     {
       "claim": "Quantum computers will break all modern cryptography.",
-      "expected_subclaims": [
-        "Shor’s algorithm can break RSA and ECC",
-        "Large-scale fault-tolerant quantum computers do not yet exist",
-        "Post-quantum cryptographic schemes exist"
-      ],
-      "expected_verdict": "UNCERTAIN"
+      "expected_verdict": "NO_DECOMPOSE"
     },
     {
       "claim": "Social media usage causes increased anxiety in teenagers.",
-      "expected_subclaims": [
-        "High social media usage correlates with anxiety in teenagers",
-        "Correlation does not imply causation",
-        "Other confounding factors contribute to anxiety"
-      ],
-      "expected_verdict": "DECOMPOSE"
+      "expected_verdict": "NO_DECOMPOSE"
     },
     {
-      "claim": "Vaccines significantly reduce the spread of infectious diseases.",
-      "expected_subclaims": [
-        "Vaccines reduce transmission rates",
-        "Herd immunity lowers population-level spread",
-        "Effectiveness varies across diseases and vaccines"
-      ],
-      "expected_verdict": "DECOMPOSE"
+      "claim": "Vaccines are effective at preventing disease.",
+      "expected_verdict": "NO_DECOMPOSE"
     },
     {
-      "claim": "Artificial intelligence will eliminate most software engineering jobs.",
-      "expected_subclaims": [
-        "AI automates repetitive coding tasks",
-        "Complex system design still requires humans",
-        "Job roles may shift rather than disappear"
-      ],
-      "expected_verdict": "UNCERTAIN"
+      "claim": "Artificial intelligence will eliminate most jobs.",
+      "expected_verdict": "NO_DECOMPOSE"
     },
     {
-      "claim": "Renewable energy alone can meet global energy demand.",
-      "expected_subclaims": [
-        "Renewable energy sources can scale to large capacity",
-        "Energy storage and intermittency remain challenges",
-        "Grid infrastructure limits full adoption"
-      ],
-      "expected_verdict": "DECOMPOSE"
+      "claim": "Coffee tastes better than tea.",
+      "expected_verdict": "NO_DECOMPOSE"
     },
     {
-      "claim": "Self-driving cars are safer than human drivers.",
-      "expected_subclaims": [
-        "Autonomous systems reduce human error",
-        "Edge cases still cause autonomous failures",
-        "Safety depends on deployment conditions"
-      ],
-      "expected_verdict": "DECOMPOSE"
+      "claim": "The Earth is approximately 4.5 billion years old.",
+      "expected_verdict": "NO_DECOMPOSE"
+    },
+    {
+      "claim": "Renewable energy is more sustainable than fossil fuels.",
+      "expected_verdict": "NO_DECOMPOSE"
+    },
+    {
+      "claim": "Self-driving cars will be safer than human drivers.",
+      "expected_verdict": "NO_DECOMPOSE"
     },
     {
       "claim": "Eating late at night causes weight gain.",
-      "expected_subclaims": [
-        "Meal timing affects metabolism",
-        "Total caloric intake matters more than timing",
-        "Scientific evidence is mixed"
-      ],
-      "expected_verdict": "UNCERTAIN"
+      "expected_verdict": "NO_DECOMPOSE"
+    },
+    {
+      "claim": "Democracy is the best form of government.",
+      "expected_verdict": "NO_DECOMPOSE"
     }
   ]
 }

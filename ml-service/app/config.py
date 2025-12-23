@@ -18,6 +18,8 @@ ms_marco_6 = cfg["ms-marco-6"]
 ms_marco_12 = cfg["ms-marco-12"]
 roberta_large = cfg["roberta-large"]
 
+llama_8B = cfg["llama-8B"]
+
 metas_file = BASE_DIR / cfg["metas_path"]
 faiss_index = BASE_DIR / cfg["faiss_index_path"]
 local_dir = BASE_DIR / cfg["local_files_path"]

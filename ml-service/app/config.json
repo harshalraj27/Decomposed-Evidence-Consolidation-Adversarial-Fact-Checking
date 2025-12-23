@@ -5,6 +5,7 @@
   "ms-marco-6": "cross-encoder/ms-marco-MiniLM-L-6-v2",
   "ms-marco-12": "cross-encoder/ms-marco-MiniLM-L-12-v2",
   "roberta-large": "roberta-large-mnli",
+  "llama-8B": "C:/Users/Harshal Raj/Fact-Anchor/models/Meta-Llama-3-8B-Instruct.Q5_K_M.gguf",
   "faiss_index_path": "data/index.faiss",
   "metas_path" : "data/metas.jsonl",
   "local_files_path": "data/local_curated/",
