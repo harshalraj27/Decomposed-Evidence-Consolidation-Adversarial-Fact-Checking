@@ -245,8 +245,10 @@ def pubmed_ingestion(pmids, max_papers=10, prefer_abstract=True, max_chars=40_00
 
 def openreview_ingestion(invitation, max_papers=20, include_reviews=False):
     client = openreview.Client(baseurl="https://api.openreview.net")
-    notes = client.get_all_notes(invitation=invitation)
 
+    notes = client.get_all_notes(
+        content={"venueid": invitation}
+    )
     count = 0
     for note in notes:
         if count >= max_papers:

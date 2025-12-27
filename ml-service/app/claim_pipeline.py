@@ -1,3 +1,5 @@
+from types import SimpleNamespace
+
 from .config import *
 from .subclaim_pipeline import run_subclaim_pipeline
 from .llm_decomposer import llm_decomposer
@@ -6,6 +8,11 @@ from .rule_decomposer import rule_decompose
 STRONG_THRESHOLD = 0.6
 WEAK_THRESHOLD = 0.3
 TOP_K_EVIDENCE = 3
+
+MIXED_SUPPORT_MIN = 0.35
+MIXED_CONTRADICT_MIN = 0.35
+MIN_SUPPORT_COUNT = 2
+MIN_CONTRADICT_COUNT = 2
 
 def check_hard_contradict(subclaim_results):
     for res in subclaim_results:
@@ -61,6 +68,12 @@ def aggregate_signals(subclaim_results):
     return agg
 
 def rank_and_truncate(evidence_list):
+    for x in evidence_list:
+        if "combined_rank_score" not in x:
+            x["combined_rank_score"] = (
+                x.get("rerank_score", 0.0)
+                + x.get("faiss_score", 0.0)
+            )
     evidence_list = sorted(
         evidence_list,
         key=lambda x: x["combined_rank_score"],
@@ -107,44 +120,59 @@ def claim_wrapper(claim: str):
 
     if subclaims_meta["verdict"] == "OK":
         for s in subclaims_meta["subclaims"]:
-            subclaims.append(s["text"])
-
+            subclaims.append(SimpleNamespace(text=s["text"]))
     elif subclaims_meta["verdict"] == "NO_DECOMPOSE":
-        subclaims = [claim]
-
+        subclaims = [SimpleNamespace(text=claim)]
     else:
         rule_subclaims = rule_decompose(claim)
         if rule_subclaims:
             for sc in rule_subclaims:
-                subclaims.append(sc.text)
+                subclaims.append(sc)
         else:
-            subclaims = [claim]
+            subclaims = [SimpleNamespace(text=claim)]
 
     subclaim_results = []
     for sc in subclaims:
         subclaim_results.append(run_subclaim_pipeline(sc))
 
-    hard_contradict = check_hard_contradict(subclaim_results)
     agg = aggregate_signals(subclaim_results)
-
+    hard_contradict = check_hard_contradict(subclaim_results)
     n = agg["num_subclaims"]
+
+    support_signal = agg["support_strong"] + agg["support_weak"]
+    contradict_signal = agg["contradict_strong"] + agg["contradict_weak"]
+
+    aspect_disagreement = (
+        agg["num_support"] > 0 and agg["num_contradict"] > 0
+    ) or agg["num_mixed"] > 0
+
     if n == 0:
         final_verdict = "INCONCLUSIVE"
+
+    elif (
+        support_signal >= MIXED_SUPPORT_MIN
+        and contradict_signal >= MIXED_CONTRADICT_MIN
+        and agg["num_support"] >= MIN_SUPPORT_COUNT
+        and agg["num_contradict"] >= MIN_CONTRADICT_COUNT
+        and aspect_disagreement
+    ):
+        final_verdict = "MIXED"
+
     elif hard_contradict:
         final_verdict = "CONTRADICT"
+
     elif (
-        agg["support_strong"] < WEAK_THRESHOLD
-        and agg["contradict_strong"] < WEAK_THRESHOLD
+        support_signal < WEAK_THRESHOLD
+        and contradict_signal < WEAK_THRESHOLD
         and agg["num_inconclusive"] / n > 0.5
     ):
         final_verdict = "INCONCLUSIVE"
-    elif agg["support_strong"] >= STRONG_THRESHOLD and agg["contradict_strong"] < STRONG_THRESHOLD:
-        final_verdict = "SUPPORT"
-    elif agg["contradict_strong"] >= STRONG_THRESHOLD and agg["support_strong"] < STRONG_THRESHOLD:
-        final_verdict = "CONTRADICT"
 
-    elif agg["support_strong"] >= STRONG_THRESHOLD and agg["contradict_strong"] >= STRONG_THRESHOLD:
-        final_verdict = "MIXED"
+    elif support_signal >= STRONG_THRESHOLD:
+        final_verdict = "SUPPORT"
+
+    elif contradict_signal >= STRONG_THRESHOLD:
+        final_verdict = "CONTRADICT"
 
     elif agg["num_support"] / n > 0.5:
         final_verdict = "SUPPORT"

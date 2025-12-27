@@ -1,0 +1,147 @@
+[
+  {
+    "claim": "Scaling laws indicate that increasing model size and data generally improves language model performance.",
+    "expected_final_verdict": "SUPPORT",
+    "expected_subclaims": [
+      { "text": "Increasing model size improves language model performance.", "expected_verdict": "SUPPORT" },
+      { "text": "Increasing data improves language model performance.", "expected_verdict": "SUPPORT" }
+    ]
+  },
+  {
+    "claim": "Transformer architectures enabled significant improvements in natural language processing tasks.",
+    "expected_final_verdict": "SUPPORT",
+    "expected_subclaims": [
+      { "text": "Transformer architectures improved NLP task performance.", "expected_verdict": "SUPPORT" }
+    ]
+  },
+  {
+    "claim": "Fault tolerance is a fundamental requirement for reliable distributed systems.",
+    "expected_final_verdict": "SUPPORT",
+    "expected_subclaims": [
+      { "text": "Distributed systems require fault tolerance for reliability.", "expected_verdict": "SUPPORT" }
+    ]
+  },
+  {
+    "claim": "Increasing computational resources can improve the training performance of deep learning models.",
+    "expected_final_verdict": "SUPPORT",
+    "expected_subclaims": [
+      { "text": "More computational resources improve deep learning training performance.", "expected_verdict": "SUPPORT" }
+    ]
+  },
+  {
+    "claim": "Large language models can perform multiple language tasks without task-specific fine-tuning.",
+    "expected_final_verdict": "SUPPORT",
+    "expected_subclaims": [
+      { "text": "Large language models can perform multiple language tasks.", "expected_verdict": "SUPPORT" }
+    ]
+  },
+  {
+    "claim": "Distributed consensus protocols help systems remain consistent despite node failures.",
+    "expected_final_verdict": "SUPPORT",
+    "expected_subclaims": [
+      { "text": "Consensus protocols help maintain consistency during node failures.", "expected_verdict": "SUPPORT" }
+    ]
+  },
+  {
+    "claim": "Increasing model size always guarantees better generalization performance.",
+    "expected_final_verdict": "CONTRADICT",
+    "expected_subclaims": [
+      { "text": "Increasing model size always guarantees better generalization.", "expected_verdict": "CONTRADICT" }
+    ]
+  },
+  {
+    "claim": "Distributed systems do not need fault tolerance mechanisms.",
+    "expected_final_verdict": "CONTRADICT",
+    "expected_subclaims": [
+      { "text": "Distributed systems do not require fault tolerance.", "expected_verdict": "CONTRADICT" }
+    ]
+  },
+  {
+    "claim": "Quantum computers can function reliably without error correction.",
+    "expected_final_verdict": "CONTRADICT",
+    "expected_subclaims": [
+      { "text": "Quantum computers do not require error correction.", "expected_verdict": "CONTRADICT" }
+    ]
+  },
+  {
+    "claim": "Scaling neural networks has no impact on performance improvements.",
+    "expected_final_verdict": "CONTRADICT",
+    "expected_subclaims": [
+      { "text": "Scaling neural networks does not improve performance.", "expected_verdict": "CONTRADICT" }
+    ]
+  },
+  {
+    "claim": "Larger datasets always reduce overfitting in machine learning models.",
+    "expected_final_verdict": "CONTRADICT",
+    "expected_subclaims": [
+      { "text": "Larger datasets always reduce overfitting.", "expected_verdict": "CONTRADICT" }
+    ]
+  },
+  {
+    "claim": "Transformer models eliminate the need for optimization techniques.",
+    "expected_final_verdict": "CONTRADICT",
+    "expected_subclaims": [
+      { "text": "Transformers remove the need for optimization.", "expected_verdict": "CONTRADICT" }
+    ]
+  },
+  {
+    "claim": "Scaling model size improves performance but introduces efficiency and stability challenges.",
+    "expected_final_verdict": "MIXED",
+    "expected_subclaims": [
+      { "text": "Scaling model size improves performance.", "expected_verdict": "SUPPORT" },
+      { "text": "Scaling model size introduces efficiency and stability challenges.", "expected_verdict": "SUPPORT" }
+    ]
+  },
+  {
+    "claim": "Distributed systems improve scalability but increase system complexity.",
+    "expected_final_verdict": "MIXED",
+    "expected_subclaims": [
+      { "text": "Distributed systems improve scalability.", "expected_verdict": "SUPPORT" },
+      { "text": "Distributed systems increase system complexity.", "expected_verdict": "SUPPORT" }
+    ]
+  },
+  {
+    "claim": "Large language models are powerful but can produce incorrect or misleading outputs.",
+    "expected_final_verdict": "MIXED",
+    "expected_subclaims": [
+      { "text": "Large language models are powerful.", "expected_verdict": "SUPPORT" },
+      { "text": "Large language models can produce incorrect outputs.", "expected_verdict": "SUPPORT" }
+    ]
+  },
+  {
+    "claim": "Quantum error correction enables scaling but adds significant overhead.",
+    "expected_final_verdict": "MIXED",
+    "expected_subclaims": [
+      { "text": "Quantum error correction enables scaling.", "expected_verdict": "SUPPORT" },
+      { "text": "Quantum error correction adds overhead.", "expected_verdict": "SUPPORT" }
+    ]
+  },
+  {
+    "claim": "Future architectures will eliminate the need for large datasets in machine learning.",
+    "expected_final_verdict": "INCONCLUSIVE",
+    "expected_subclaims": [
+      { "text": "Future architectures will remove the need for large datasets.", "expected_verdict": "INCONCLUSIVE" }
+    ]
+  },
+  {
+    "claim": "A single algorithm can optimally solve all machine learning problems.",
+    "expected_final_verdict": "INCONCLUSIVE",
+    "expected_subclaims": [
+      { "text": "One algorithm can optimally solve all ML problems.", "expected_verdict": "INCONCLUSIVE" }
+    ]
+  },
+  {
+    "claim": "Quantum computers will replace classical computers for most workloads.",
+    "expected_final_verdict": "INCONCLUSIVE",
+    "expected_subclaims": [
+      { "text": "Quantum computers will replace classical computers.", "expected_verdict": "INCONCLUSIVE" }
+    ]
+  },
+  {
+    "claim": "Increasing data quality is more important than model size for all tasks.",
+    "expected_final_verdict": "INCONCLUSIVE",
+    "expected_subclaims": [
+      { "text": "Data quality is always more important than model size.", "expected_verdict": "INCONCLUSIVE" }
+    ]
+  }
+]

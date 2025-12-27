@@ -6,11 +6,11 @@ import faiss
 from sentence_transformers import SentenceTransformer
 from sklearn.preprocessing import normalize
 
-from .config import *
+from .config import metas_file, faiss_index, gte, M
 
 model = SentenceTransformer(gte)
-
 index = None
+
 
 def initialize_faiss_index():
     global index
@@ -36,7 +36,11 @@ def initialize_faiss_index():
     index = faiss.IndexIDMap(base_index)
 
     index.add_with_ids(embeddings, np.array(ids, dtype=np.int64))
-    faiss.write_index(index, str(faiss_index))
+
+    tmp_path = str(faiss_index) + ".tmp"
+    faiss.write_index(index, tmp_path)
+    Path(tmp_path).replace(faiss_index)
+
 
 def get_faiss_index():
     global index
@@ -50,6 +54,7 @@ def get_faiss_index():
         initialize_faiss_index()
 
     return index
+
 
 def add_faiss_index(metadata):
     global index
@@ -66,4 +71,7 @@ def add_faiss_index(metadata):
     embeddings = normalize(embeddings, norm="l2").astype("float32")
 
     index.add_with_ids(embeddings, ids)
-    faiss.write_index(index, str(faiss_index))
+
+    tmp_path = str(faiss_index) + ".tmp"
+    faiss.write_index(index, tmp_path)
+    Path(tmp_path).replace(faiss_index)
