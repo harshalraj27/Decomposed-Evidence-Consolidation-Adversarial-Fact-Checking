@@ -1,4 +1,5 @@
 from types import SimpleNamespace
+from math import ceil
 
 from .config import *
 from .subclaim_pipeline import run_subclaim_pipeline
@@ -10,9 +11,21 @@ WEAK_THRESHOLD = 0.3
 TOP_K_EVIDENCE = 3
 
 MIXED_SUPPORT_MIN = 0.35
-MIXED_CONTRADICT_MIN = 0.35
-MIN_SUPPORT_COUNT = 2
-MIN_CONTRADICT_COUNT = 2
+MIXED_NEGATIVE_MIN = 0.35
+
+NEGATIVE_KEYS = {
+    "cost", "overhead", "energy", "instability", "unstable", "diminishing",
+    "limitation", "limitations", "challenge", "challenges", "complexity",
+    "expensive", "inefficient", "overfitting", "bias", "hallucinate",
+    "misleading", "overhead", "difficulty", "brittle"
+}
+
+def infer_polarity(text: str):
+    t = text.lower()
+    for k in NEGATIVE_KEYS:
+        if k in t:
+            return "NEGATIVE"
+    return "POSITIVE"
 
 def check_hard_contradict(subclaim_results):
     for res in subclaim_results:
@@ -29,11 +42,14 @@ def aggregate_signals(subclaim_results):
         "support_weak": 0.0,
         "contradict_strong": 0.0,
         "contradict_weak": 0.0,
+        "positive_support": 0.0,
+        "negative_support": 0.0,
         "num_support": 0,
         "num_contradict": 0,
         "num_mixed": 0,
         "num_inconclusive": 0,
-        "num_controversial": 0,
+        "num_positive": 0,
+        "num_negative": 0,
         "num_subclaims": len(subclaim_results),
     }
 
@@ -49,9 +65,6 @@ def aggregate_signals(subclaim_results):
         elif verdict == "INCONCLUSIVE":
             agg["num_inconclusive"] += 1
 
-        if res["controversial"]:
-            agg["num_controversial"] += 1
-
         support = res["strengths"]["support"]
         contradict = res["strengths"]["contradict"]
 
@@ -64,6 +77,15 @@ def aggregate_signals(subclaim_results):
             agg["contradict_strong"] += contradict
         elif contradict >= WEAK_THRESHOLD:
             agg["contradict_weak"] += contradict
+
+        if verdict == "SUPPORT":
+            polarity = infer_polarity(res["subclaim"])
+            if polarity == "POSITIVE":
+                agg["positive_support"] += support
+                agg["num_positive"] += 1
+            else:
+                agg["negative_support"] += support
+                agg["num_negative"] += 1
 
     return agg
 
@@ -102,7 +124,6 @@ def build_subclaim_explanation(res):
     return {
         "subclaim": res["subclaim"],
         "verdict": res["verdict"],
-        "controversial": res["controversial"],
         "strength_summary": {
             "support": support_level,
             "contradict": contradict_level
@@ -142,19 +163,16 @@ def claim_wrapper(claim: str):
     support_signal = agg["support_strong"] + agg["support_weak"]
     contradict_signal = agg["contradict_strong"] + agg["contradict_weak"]
 
-    aspect_disagreement = (
-        agg["num_support"] > 0 and agg["num_contradict"] > 0
-    ) or agg["num_mixed"] > 0
+    min_count = max(1, ceil(0.3 * n))
 
     if n == 0:
         final_verdict = "INCONCLUSIVE"
 
     elif (
-        support_signal >= MIXED_SUPPORT_MIN
-        and contradict_signal >= MIXED_CONTRADICT_MIN
-        and agg["num_support"] >= MIN_SUPPORT_COUNT
-        and agg["num_contradict"] >= MIN_CONTRADICT_COUNT
-        and aspect_disagreement
+        agg["positive_support"] >= MIXED_SUPPORT_MIN
+        and agg["negative_support"] >= MIXED_NEGATIVE_MIN
+        and agg["num_positive"] >= min_count
+        and agg["num_negative"] >= min_count
     ):
         final_verdict = "MIXED"
 
@@ -197,7 +215,7 @@ def claim_wrapper(claim: str):
             sections["SUPPORTED_ASPECTS"].append(exp)
         elif res["verdict"] == "CONTRADICT":
             sections["CONTRADICTED_ASPECTS"].append(exp)
-        elif res["verdict"] == "MIXED" or res["controversial"]:
+        elif res["verdict"] == "MIXED":
             sections["CONTROVERSIAL_ASPECTS"].append(exp)
         else:
             sections["EVIDENCE_LIMITATIONS"].append(exp)
@@ -215,7 +233,7 @@ def claim_wrapper(claim: str):
     elif final_verdict == "CONTRADICT":
         summary = "The claim is contradicted by strong evidence."
     elif final_verdict == "MIXED":
-        summary = "The evidence presents mixed conclusions on key aspects of the claim."
+        summary = "The evidence presents both benefits and limitations."
     else:
         summary = "There is not enough strong evidence to reach a clear conclusion."
 

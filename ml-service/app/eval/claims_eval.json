@@ -143,5 +143,88 @@
     "expected_subclaims": [
       { "text": "Data quality is always more important than model size.", "expected_verdict": "INCONCLUSIVE" }
     ]
+  },
+  {
+    "claim": "Scaling large language models improves performance, enables emergent abilities, and supports zero-shot learning, but increases training cost, energy consumption, optimization instability, and diminishing returns.",
+    "expected_final_verdict": "MIXED",
+    "expected_subclaims": [
+      { "text": "Scaling large language models improves performance.", "expected_verdict": "SUPPORT" },
+      { "text": "Scaling enables emergent abilities in language models.", "expected_verdict": "SUPPORT" },
+      { "text": "Large language models support zero-shot learning.", "expected_verdict": "SUPPORT" },
+      { "text": "Scaling increases training cost.", "expected_verdict": "SUPPORT" },
+      { "text": "Scaling increases energy consumption.", "expected_verdict": "SUPPORT" },
+      { "text": "Scaling leads to diminishing performance returns.", "expected_verdict": "SUPPORT" }
+    ]
+  },
+  {
+    "claim": "Transformer architectures improve parallelization, capture long-range dependencies, and scale efficiently, but require large compute budgets, are sensitive to hyperparameters, and struggle with very long contexts.",
+    "expected_final_verdict": "MIXED",
+    "expected_subclaims": [
+      { "text": "Transformer architectures enable parallel computation.", "expected_verdict": "SUPPORT" },
+      { "text": "Transformers capture long-range dependencies.", "expected_verdict": "SUPPORT" },
+      { "text": "Transformers scale efficiently with model size.", "expected_verdict": "SUPPORT" },
+      { "text": "Transformers require large computational resources.", "expected_verdict": "SUPPORT" },
+      { "text": "Transformers are sensitive to hyperparameter choices.", "expected_verdict": "SUPPORT" },
+      { "text": "Transformers struggle with very long context lengths.", "expected_verdict": "SUPPORT" }
+    ]
+  },
+  {
+    "claim": "Distributed systems improve scalability, availability, and fault tolerance, but introduce coordination overhead, consistency challenges, debugging difficulty, and increased system complexity.",
+    "expected_final_verdict": "MIXED",
+    "expected_subclaims": [
+      { "text": "Distributed systems improve scalability.", "expected_verdict": "SUPPORT" },
+      { "text": "Distributed systems improve availability.", "expected_verdict": "SUPPORT" },
+      { "text": "Distributed systems improve fault tolerance.", "expected_verdict": "SUPPORT" },
+      { "text": "Distributed systems introduce coordination overhead.", "expected_verdict": "SUPPORT" },
+      { "text": "Distributed systems introduce consistency challenges.", "expected_verdict": "SUPPORT" },
+      { "text": "Distributed systems increase debugging difficulty.", "expected_verdict": "SUPPORT" }
+    ]
+  },
+  {
+    "claim": "Increasing dataset size improves model generalization, training stability, and robustness, but data collection is expensive, labeling is costly, noisy data degrades performance, and returns diminish beyond scale.",
+    "expected_final_verdict": "MIXED",
+    "expected_subclaims": [
+      { "text": "Larger datasets improve model generalization.", "expected_verdict": "SUPPORT" },
+      { "text": "Larger datasets improve training stability.", "expected_verdict": "SUPPORT" },
+      { "text": "Larger datasets improve robustness.", "expected_verdict": "SUPPORT" },
+      { "text": "Collecting large datasets is expensive.", "expected_verdict": "SUPPORT" },
+      { "text": "Labeling large datasets is costly.", "expected_verdict": "SUPPORT" },
+      { "text": "Noisy data can degrade model performance.", "expected_verdict": "SUPPORT" }
+    ]
+  },
+  {
+    "claim": "Quantum error correction enables reliable quantum computation and scalability, but requires many physical qubits, introduces large overhead, limits near-term feasibility, and increases system complexity.",
+    "expected_final_verdict": "MIXED",
+    "expected_subclaims": [
+      { "text": "Quantum error correction enables reliable quantum computation.", "expected_verdict": "SUPPORT" },
+      { "text": "Quantum error correction supports scalable quantum systems.", "expected_verdict": "SUPPORT" },
+      { "text": "Quantum error correction requires many physical qubits.", "expected_verdict": "SUPPORT" },
+      { "text": "Quantum error correction introduces significant overhead.", "expected_verdict": "SUPPORT" },
+      { "text": "Quantum error correction limits near-term feasibility.", "expected_verdict": "SUPPORT" }
+    ]
+  },
+  {
+    "claim": "Large language models generate fluent text, perform many tasks, and generalize across domains, but hallucinate facts, encode societal biases, lack grounded reasoning, and require massive datasets.",
+    "expected_final_verdict": "MIXED",
+    "expected_subclaims": [
+      { "text": "Large language models generate fluent text.", "expected_verdict": "SUPPORT" },
+      { "text": "Large language models perform many language tasks.", "expected_verdict": "SUPPORT" },
+      { "text": "Large language models generalize across domains.", "expected_verdict": "SUPPORT" },
+      { "text": "Large language models hallucinate incorrect facts.", "expected_verdict": "SUPPORT" },
+      { "text": "Large language models encode societal biases.", "expected_verdict": "SUPPORT" },
+      { "text": "Large language models require massive datasets.", "expected_verdict": "SUPPORT" }
+    ]
+  },
+  {
+    "claim": "Increasing computational resources improves deep learning training speed, enables larger models, and stabilizes optimization, but increases cost, energy usage, hardware dependence, and environmental impact.",
+    "expected_final_verdict": "MIXED",
+    "expected_subclaims": [
+      { "text": "More computational resources improve training speed.", "expected_verdict": "SUPPORT" },
+      { "text": "More computational resources enable larger models.", "expected_verdict": "SUPPORT" },
+      { "text": "More computational resources stabilize optimization.", "expected_verdict": "SUPPORT" },
+      { "text": "Increasing computation raises financial cost.", "expected_verdict": "SUPPORT" },
+      { "text": "Increasing computation raises energy consumption.", "expected_verdict": "SUPPORT" },
+      { "text": "Increasing computation increases environmental impact.", "expected_verdict": "SUPPORT" }
+    ]
   }
 ]
