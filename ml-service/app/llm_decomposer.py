@@ -1,10 +1,9 @@
 import json
 import re
-
-from llama_cpp import Llama
 from dataclasses import dataclass
-
+from llama_cpp import Llama
 from .config import llama_8B
+
 
 @dataclass
 class Subclaim:
@@ -12,6 +11,7 @@ class Subclaim:
     text: str
     type: str
     source_claim: str
+
 
 llm = Llama(
     model_path=llama_8B,
@@ -56,8 +56,13 @@ INPUT CLAIM: "{CLAIM}"
 
 JSON OUTPUT:"""
 
+ERROR_RESPONSE = {"verdict": "ERROR", "subclaims": []}
+VALID_VERDICTS = {"OK", "NO_DECOMPOSE", "ERROR"}
+
+
 def build_decomposer_prompt(claim: str) -> str:
     return PROMPT_TEMPLATE.replace("{CLAIM}", claim)
+
 
 def extract_json(text: str):
     text = text.strip()
@@ -69,8 +74,7 @@ def extract_json(text: str):
     if start == -1 or end == -1:
         return None
 
-    json_str = text[start:end + 1]
-    json_str = json_str.replace('{{', '{').replace('}}', '}')
+    json_str = text[start:end + 1].replace('{{', '{').replace('}}', '}')
 
     try:
         return json.loads(json_str)
@@ -80,6 +84,21 @@ def extract_json(text: str):
             return json.loads(cleaned)
         except:
             return None
+
+
+def validate_response(data):
+    if data is None:
+        return False
+    if "verdict" not in data or "subclaims" not in data:
+        return False
+    if data["verdict"] not in VALID_VERDICTS:
+        return False
+    if not isinstance(data["subclaims"], list):
+        return False
+    if data["verdict"] == "OK" and not data["subclaims"]:
+        return False
+    return True
+
 
 def llm_decomposer(claim: str):
     prompt = build_decomposer_prompt(claim)
@@ -92,24 +111,11 @@ def llm_decomposer(claim: str):
     )
 
     text = output["choices"][0]["text"].strip()
-
     print("RAW LLM OUTPUT:\n", text)
 
     data = extract_json(text)
 
-    if data is None:
-        return {"verdict": "ERROR", "subclaims": []}
-
-    if "verdict" not in data or "subclaims" not in data:
-        return {"verdict": "ERROR", "subclaims": []}
-
-    if data["verdict"] not in {"OK", "NO_DECOMPOSE", "ERROR"}:
-        return {"verdict": "ERROR", "subclaims": []}
-
-    if not isinstance(data["subclaims"], list):
-        return {"verdict": "ERROR", "subclaims": []}
-
-    if data["verdict"] == "OK" and not data["subclaims"]:
-        return {"verdict": "ERROR", "subclaims": []}
+    if not validate_response(data):
+        return ERROR_RESPONSE
 
     return data
