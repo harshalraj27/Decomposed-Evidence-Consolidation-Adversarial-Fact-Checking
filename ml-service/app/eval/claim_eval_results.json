@@ -4231,7 +4231,7 @@
                 "subclaim": "Distributed systems do not need fault tolerance mechanisms.",
                 "verdict": "CONTRADICT",
                 "strength_summary": {
-                  "support": "none",
+                  "support": "weak",
                   "contradict": "strong"
                 },
                 "evidence": {
@@ -6359,7 +6359,7 @@
     {
       "claim": "Scaling model size improves performance but introduces efficiency and stability challenges.",
       "expected_verdict": "MIXED",
-      "predicted_verdict": "MIXED",
+      "predicted_verdict": "SUPPORT",
       "subclaims": [
         {
           "subclaim": "Scaling model size improves performance",
@@ -6990,7 +6990,7 @@
         }
       ],
       "explanation": {
-        "summary": "The evidence presents both benefits and limitations.",
+        "summary": "The claim is generally supported by the available evidence, with some limitations.",
         "sections": [
           {
             "type": "SUPPORTED_ASPECTS",
@@ -16570,7 +16570,7 @@
                 "subclaim": "Distributed systems improve fault tolerance",
                 "verdict": "CONTRADICT",
                 "strength_summary": {
-                  "support": "strong",
+                  "support": "weak",
                   "contradict": "strong"
                 },
                 "evidence": {
@@ -19519,7 +19519,7 @@
     {
       "claim": "Quantum error correction enables reliable quantum computation and scalability, but requires many physical qubits, introduces large overhead, limits near-term feasibility, and increases system complexity.",
       "expected_verdict": "MIXED",
-      "predicted_verdict": "MIXED",
+      "predicted_verdict": "CONTRADICT",
       "subclaims": [
         {
           "subclaim": "Quantum error correction enables reliable quantum computation",
@@ -20441,7 +20441,7 @@
         }
       ],
       "explanation": {
-        "summary": "The evidence presents both benefits and limitations.",
+        "summary": "The claim is contradicted by strong evidence.",
         "sections": [
           {
             "type": "SUPPORTED_ASPECTS",
@@ -26149,7 +26149,7 @@
     }
   ],
   "metrics": {
-    "final_accuracy": 0.5925925925925926,
+    "final_accuracy": 0.5185185185185185,
     "confusion_matrix": {
       "SUPPORT": {
         "SUPPORT": 5,
@@ -26164,9 +26164,9 @@
         "INCONCLUSIVE": 0
       },
       "MIXED": {
-        "SUPPORT": 1,
-        "CONTRADICT": 6,
-        "MIXED": 4,
+        "SUPPORT": 2,
+        "CONTRADICT": 7,
+        "MIXED": 2,
         "INCONCLUSIVE": 0
       },
       "INCONCLUSIVE": {
@@ -26179,19 +26179,19 @@
     "precision_recall_f1": {
       "per_class": {
         "SUPPORT": {
-          "precision": 0.7142857142857143,
+          "precision": 0.625,
           "recall": 0.8333333333333334,
-          "f1": 0.7692307692307692
+          "f1": 0.7142857142857143
         },
         "CONTRADICT": {
-          "precision": 0.35714285714285715,
+          "precision": 0.3333333333333333,
           "recall": 0.8333333333333334,
-          "f1": 0.5
+          "f1": 0.47619047619047616
         },
         "MIXED": {
           "precision": 1.0,
-          "recall": 0.36363636363636365,
-          "f1": 0.5333333333333333
+          "recall": 0.18181818181818182,
+          "f1": 0.3076923076923077
         },
         "INCONCLUSIVE": {
           "precision": 1.0,
@@ -26199,7 +26199,7 @@
           "f1": 0.6666666666666666
         }
       },
-      "macro_f1": 0.6173076923076922
+      "macro_f1": 0.5412087912087912
     },
     "subclaim_accuracy": null,
     "decomposition_stats": {

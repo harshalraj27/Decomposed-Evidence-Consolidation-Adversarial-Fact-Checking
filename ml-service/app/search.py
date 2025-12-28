@@ -77,8 +77,7 @@ def search(subclaim: str, top_k: int = None):
                 **meta
             })
 
-        re_ranked_results = reranker(subclaim, results)
-        return re_ranked_results
+        return results
 
     except Exception as e:
         logger.error(f"Search query failed: {e}")

@@ -6,12 +6,14 @@ from .subclaim_pipeline import run_subclaim_pipeline
 from .llm_decomposer import llm_decomposer
 from .rule_decomposer import rule_decompose
 
-STRONG_THRESHOLD = 0.6
-WEAK_THRESHOLD = 0.3
+STRONG_THRESHOLD = 0.65
+WEAK_THRESHOLD = 0.25
 TOP_K_EVIDENCE = 3
 
-MIXED_SUPPORT_MIN = 0.35
-MIXED_NEGATIVE_MIN = 0.35
+MIXED_SUPPORT_MIN = 0.30
+MIXED_NEGATIVE_MIN = 0.30
+
+alpha = 0.4
 
 NEGATIVE_KEYS = {
     "cost", "overhead", "energy", "instability", "unstable", "diminishing",
@@ -163,7 +165,7 @@ def claim_wrapper(claim: str):
     support_signal = agg["support_strong"] + agg["support_weak"]
     contradict_signal = agg["contradict_strong"] + agg["contradict_weak"]
 
-    min_count = max(1, ceil(0.3 * n))
+    min_count = max(1, ceil(alpha * n))
 
     if n == 0:
         final_verdict = "INCONCLUSIVE"
