@@ -8,9 +8,7 @@ from .stance_classifier import stance_score
 from .stance_eval_examples import curated_examples
 from .config import stance_eval_dir
 
-
 out = Path(stance_eval_dir)
-
 
 def _write_jsonl(path_like, items):
     p = Path(path_like)

@@ -6,14 +6,14 @@ from .subclaim_pipeline import run_subclaim_pipeline
 from .llm_decomposer import llm_decomposer
 from .rule_decomposer import rule_decompose
 
-STRONG_THRESHOLD = 0.65
-WEAK_THRESHOLD = 0.25
+STRONG_THRESHOLD = 0.7
+WEAK_THRESHOLD = 0.30
 TOP_K_EVIDENCE = 3
 
 MIXED_SUPPORT_MIN = 0.30
 MIXED_NEGATIVE_MIN = 0.30
 
-alpha = 0.4
+alpha = 0.3
 
 NEGATIVE_KEYS = {
     "cost", "overhead", "energy", "instability", "unstable", "diminishing",

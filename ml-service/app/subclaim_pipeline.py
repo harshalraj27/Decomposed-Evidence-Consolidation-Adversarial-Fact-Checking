@@ -4,15 +4,27 @@ from .stance_classifier import stance_score
 from .stance_aggregator import aggregate_evidences
 from .subclaim_verdict import get_verdict, get_controversy
 
+USE_RERANKER = True
+USE_NLI = True
+
 def run_subclaim_pipeline(subclaim, top_k=20, top_n=10):
     subclaim = subclaim.text
     retrieved = search(subclaim, top_k=top_k)
 
-    reranked = reranker(subclaim, retrieved, top_n=top_n)
+    # Reranker ablation switch
+    if USE_RERANKER:
+        reranked = reranker(subclaim, retrieved, top_n=top_n)
+    else:
+        reranked = retrieved
 
     stance_results = []
     for e in reranked:
-        probs = stance_score(subclaim, e["sentence"])
+        if USE_NLI:
+            probs = stance_score(subclaim, e["sentence"])
+        else:
+            # NLI ablation: neutral-only baseline
+            probs = {"support": 0.0, "contradict": 0.0, "neutral": 1.0}
+
         e["probs"] = probs
         stance_results.append(e)
 
@@ -36,25 +48,3 @@ def run_subclaim_pipeline(subclaim, top_k=20, top_n=10):
             "neutral": aggregated["neutral"]
         }
     }
-"""
-if __name__ == "__main__":
-    res = run_subclaim_pipeline(
-        "Self-attention replaced recurrence in NLP models"
-    )
-
-    print("VERDICT:", res["verdict"])
-    print("CONTROVERSIAL:", res["controversial"])
-    print("STRENGTHS:", res["strengths"])
-
-    print("\nSUPPORTING:")
-    for e in res["evidence"]["supporting"][:3]:
-        print("-", e["sentence"][:120])
-
-    print("\nCONTRADICTING:")
-    for e in res["evidence"]["contradicting"][:3]:
-        print("-", e["sentence"][:120])
-
-    print("\nNEUTRAL:")
-    for e in res["evidence"]["neutral"][:3]:
-        print("-", e["sentence"][:120])
-"""
