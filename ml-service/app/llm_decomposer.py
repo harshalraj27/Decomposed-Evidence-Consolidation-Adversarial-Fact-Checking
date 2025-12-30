@@ -111,7 +111,7 @@ def llm_decomposer(claim: str):
     )
 
     text = output["choices"][0]["text"].strip()
-    print("RAW LLM OUTPUT:\n", text)
+    #print("RAW LLM OUTPUT:\n", text)
 
     data = extract_json(text)
 

@@ -3,6 +3,7 @@ from .reranker import reranker
 from .stance_classifier import stance_score
 from .stance_aggregator import aggregate_evidences
 from .subclaim_verdict import get_verdict, get_controversy
+from app.logging.nli_logger import log_nli_pair
 
 USE_RERANKER = True
 USE_NLI = True
@@ -26,6 +27,16 @@ def run_subclaim_pipeline(subclaim, top_k=20, top_n=10):
             probs = {"support": 0.0, "contradict": 0.0, "neutral": 1.0}
 
         e["probs"] = probs
+
+        pred = max(probs, key=probs.get)
+
+        log_nli_pair(
+            claim=subclaim,
+            evidence=e["sentence"],
+            probs=probs,
+            pred=pred
+        )
+
         stance_results.append(e)
 
     aggregated = aggregate_evidences(stance_results)
