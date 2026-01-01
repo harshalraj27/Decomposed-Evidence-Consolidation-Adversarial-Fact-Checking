@@ -11,7 +11,6 @@ from .config import metas_file, faiss_index, gte, M
 model = SentenceTransformer(gte)
 index = None
 
-
 def initialize_faiss_index():
     global index
 
@@ -41,7 +40,6 @@ def initialize_faiss_index():
     faiss.write_index(index, tmp_path)
     Path(tmp_path).replace(faiss_index)
 
-
 def get_faiss_index():
     global index
 
@@ -54,7 +52,6 @@ def get_faiss_index():
         initialize_faiss_index()
 
     return index
-
 
 def add_faiss_index(metadata):
     global index

@@ -8,6 +8,7 @@ import arxiv
 from .config import *
 from .schemas import ErrorResponse
 from .build_metadata import build_metadata
+from .pdf_to_text import pdf_to_text_and_metadata
 
 logger = logging.getLogger(__name__)
 Entrez.email = "harshalraj27@gmail.com"
@@ -90,15 +91,18 @@ def arxiv_ingestion(categories, max_results=20):
             }
 
             try:
-                result.download_pdf(dirpath=ingested_pdf_dir)
+                pdf_path = ingested_pdf_dir / f"{doc_id}.pdf"
+                result.download_pdf(filename=str(pdf_path))
                 write_meta(doc_id, meta)
+                pdf_to_text_and_metadata(arxiv_id)
                 ingested_ids.append(arxiv_id)
 
             except Exception as e:
                 logger.error(f"arXiv ingestion failed for {arxiv_id}: {e}")
-                ErrorResponse(e)
+                ErrorResponse(message=str(e), error_type="system")
 
     return ingested_ids
+
 
 def wikipedia_ingestion(pages, max_pages=10, min_chars=500, max_chars=50_000):
     wiki = wikipediaapi.Wikipedia(
@@ -163,7 +167,7 @@ def wikipedia_ingestion(pages, max_pages=10, min_chars=500, max_chars=50_000):
 
         except Exception as e:
             logger.error(f"Wikipedia ingestion failed for {doc_id}: {e}")
-            ErrorResponse(e)
+            ErrorResponse(message=str(e), error_type="system")
 
 def pubmed_ingestion(pmids, max_papers=10, prefer_abstract=True, max_chars=40_000):
     count = 0
@@ -241,7 +245,7 @@ def pubmed_ingestion(pmids, max_papers=10, prefer_abstract=True, max_chars=40_00
 
         except Exception as e:
             logger.error(f"PubMed ingestion failed for {pmid}: {e}")
-            ErrorResponse(e)
+            ErrorResponse(message=str(e), error_type="system")
 
 def openreview_ingestion(invitation, max_papers=20, include_reviews=False):
     client = openreview.Client(baseurl="https://api.openreview.net")
@@ -299,4 +303,4 @@ def openreview_ingestion(invitation, max_papers=20, include_reviews=False):
 
         except Exception as e:
             logger.error(f"OpenReview ingestion failed for {note.id}: {e}")
-            ErrorResponse(e)
+            ErrorResponse(message=str(e), error_type="system")

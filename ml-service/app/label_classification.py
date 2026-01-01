@@ -1,3 +1,5 @@
+# Standalone auxiliary classifier (not used in final claim pipeline)
+
 from collections import defaultdict
 from transformers import pipeline
 import re

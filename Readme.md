@@ -1,295 +1,439 @@
-# Decomposed-Evidence-Consolidation-Adversarial-Fact-Checking
+# Decomposed Evidence Consolidation Adversarial Fact-Checking
 
 ## Overview
 
-This project implements a **decomposed, evidence-driven, adversarial fact-checking system** that verifies complex claims by breaking them into atomic subclaims and reasoning over competing evidence.
+This project implements a decomposed, evidence-driven, adversarial fact-checking system for verifying complex factual claims. Instead of treating fact-checking as a single retrieval or classification task, the system explicitly models **supporting and contradicting evidence as competing signals**.
 
-Instead of relying on single top-k evidence or collapsing predictions early, the system treats fact-checking as an **adversarial process** where *supporting and contradicting evidence explicitly compete*. Final decisions are made only after aggregating these opposing signals.
+A claim is decomposed into atomic subclaims, each subclaim is verified independently, and final decisions are produced only after aggregating opposing evidence.
 
-The system is modular, interpretable, and designed for research-oriented analysis rather than black-box prediction.
+### Research-Oriented Design Principles
+
+The system is research-oriented by design:
+
+- **Explanations matter more than verdicts**
+- **Disagreement is surfaced, not hidden**
+- **Uncertainty is a valid outcome**
+- **Every architectural decision is inspectable and ablatable**
+
+> **Note:** This is not a production QA system.
 
 ---
 
 ## Core Idea
 
-**Fact-checking is framed as adversarial evidence consolidation.**
+Fact-checking is framed as **adversarial evidence consolidation**.
 
 For each subclaim:
-- evidence is evaluated for both *support* and *contradiction*
-- opposing signals are aggregated and allowed to cancel each other
-- unresolved disagreement is surfaced instead of hidden
 
-This makes the system conservative, transparent, and suitable for controlled experimentation.
+- Evidence is evaluated for support and contradiction
+- Opposing signals are accumulated instead of filtered
+- Weak or neutral evidence is preserved as context
+- Unresolved disagreement is explicitly surfaced
+
+Final verdicts depend on **relative dominance of evidence**, not the presence of a single strong sentence.
 
 ---
 
 ## High-Level Architecture
 
 ```
-Claim 
-  → Decomposer 
-  → Subclaims 
-  → Subclaim Pipeline 
-      → Retrieval 
-      → Reranking 
-      → NLI Stance Scoring 
-      → Evidence Aggregation 
-      → Subclaim Verdict + Controversy 
-  → Claim-Level Aggregation 
-  → Final Claim Verdict
+Claim
+  → Decomposer
+    → Subclaims
+      → Subclaim Pipeline
+        → Dense Retrieval (FAISS)
+        → Cross-Encoder Reranking
+        → NLI Stance Scoring
+        → Evidence Aggregation
+        → Subclaim Verdict
+      → Claim-Level Aggregation
+        → Final Claim Verdict + Explanation
 ```
 
-Each stage is implemented as a separate module with a clear responsibility.
+Each stage has a **single, explicit responsibility** and can be evaluated or ablated independently.
 
 ---
 
-## Claim Decomposer
+## Repository Structure
+
+```
+ml-service/
+├── app/
+│   ├── claim_pipeline.py           # Claim-level wrapper (main API)
+│   ├── subclaim_pipeline.py        # Per-subclaim verification
+│   ├── llm_decomposer.py           # LLM-based claim decomposition
+│   ├── rule_decomposer.py          # Heuristic decomposition gate
+│   ├── search.py                   # FAISS dense retrieval
+│   ├── reranker.py                 # Cross-encoder reranking
+│   ├── stance_classifier.py        # NLI stance scoring (MNLI)
+│   ├── stance_aggregator.py        # Adversarial signal aggregation
+│   ├── subclaim_verdict.py         # Subclaim verdict logic
+│   ├── build_metadata.py           # Sentence-level metadata builder
+│   ├── build_index.py              # FAISS index construction
+│   ├── online_ingestion.py         # Source-specific ingestion logic
+│   ├── pdf_to_text.py              # arXiv PDF → text → metadata
+│   ├── schemas.py                  # Output / error schemas
+│   ├── claim_pipeline_eval/        # Evaluation & ablation scripts
+│   └── peft/                       # PEFT experiments (deferred)
+│
+├── data/
+│   ├── local_curated/              # Manually curated sources
+│   ├── ingested/                   # Online ingested sources
+│   │   ├── pdf/
+│   │   ├── raw/
+│   │   ├── cleaned/
+│   │   └── meta/
+│   ├── metas.jsonl                 # Sentence-level metadata store
+│   └── index.faiss                 # FAISS vector index
+│
+├── run_online_ingestion.py         # Interactive ingestion runner
+├── run_claim_pipeline.py           # Interactive claim verification runner
+├── requirements.txt
+└── README.md
+```
+
+---
+
+## Environment Setup
+
+**GPU is strongly recommended.** The system uses sentence transformers, cross-encoders, and MNLI models. CPU execution is possible but slow and not the intended mode.
+
+### Installation Steps
+
+```bash
+python -m venv .venv
+source .venv/bin/activate  # Linux / Mac
+# .venv\Scripts\activate   # Windows
+
+pip install -r requirements.txt
+```
+
+### Additional Requirements
+
+You will also need the spaCy model:
+
+```bash
+python -m spacy download en_core_web_lg
+```
+
+---
+
+## Data & Corpus Design
+
+The system **does not accept arbitrary user uploads**. All evidence must come from:
+
+- Manually curated sources (`data/local_curated/`)
+- Admin-controlled online ingestion (Wikipedia, arXiv, PubMed, OpenReview)
+
+### Why This Constraint?
+
+This constraint is intentional:
+
+- Ensures reproducibility
+- Avoids noisy or adversarial inputs
+- Keeps evaluation controlled
+
+Downstream components do not distinguish between local and online sources.
+
+---
+
+## Metadata Construction
+
+All documents are ultimately converted into **sentence-level metadata** stored in:
+
+```
+data/metas.jsonl
+```
+
+Each sentence is assigned:
+
+- A stable ID
+- Source metadata
+- Credibility score
+- Document provenance
+
+### Building Metadata from Local Sources
+
+1. Place `.txt`, `.md`, or `.csv` files inside:
+   ```
+   data/local_curated/
+   ```
+
+2. Run:
+   ```bash
+   python -m app.build_metadata
+   ```
+
+This step:
+
+- Traverses directories recursively
+- Splits text into sentences
+- Filters noisy or malformed sentences
+- Assigns stable sentence IDs
+- Writes metadata to `metas.jsonl`
+
+---
+
+## Online Ingestion (Admin / Research Use)
+
+Online ingestion is interactive and controlled via:
+
+```bash
+python run_online_ingestion.py
+```
+
+You will be prompted to select a source:
+
+1. arxiv
+2. wikipedia
+3. pubmed
+4. openreview
+
+### arXiv Ingestion
+
+- Fetches papers by category
+- Downloads PDFs
+- Writes source metadata
+- Automatically runs PDF → text → sentence metadata
+- **No manual post-processing step is required**
+
+### Wikipedia Ingestion
+
+- Fetches full article content
+- Drops non-content sections
+- Assigns heuristic credibility
+- Passes text directly to metadata builder
+
+### PubMed Ingestion
+
+- Fetches abstracts (optionally PMC full text)
+- Applies length and quality filters
+- Stores biomedical metadata and credibility
+
+### OpenReview Ingestion
+
+- Fetches submissions from a venue invitation
+- Optionally includes reviews
+- Stores structured metadata and text
+
+**All online ingestion paths end by calling `build_metadata`.**
+
+---
+
+## FAISS Index Construction
+
+After any ingestion (local or online), rebuild the vector index:
+
+```bash
+python -m app.build_index
+```
+
+This step:
+
+- Encodes all sentences in `metas.jsonl`
+- Normalizes embeddings
+- Builds a FAISS `IndexIDMap`
+- Persists the index to `data/index.faiss`
+
+**Index rebuilds are manual and explicit to keep experiments controlled.**
+
+---
+
+## Claim Decomposition
 
 ### Purpose
 
-The decomposer converts a **complex claim** into a small set of **atomic, independently verifiable subclaims**.
-
-**Example:**
-
-**Claim:**
-> Transformers replaced recurrent models and improved NLP performance.
-
-**Subclaims:**
-- Self-attention replaced recurrence in NLP architectures
-- Transformers enabled better parallelization
-- Transformers improved performance over RNN-based models
+The decomposer converts a claim into **atomic, independently verifiable subclaims**. This defines the reasoning granularity of the system.
 
 ### Design
 
-- Produces short declarative subclaims
-- No retrieval or verification at this stage
-- Designed to be replaceable (prompt-based now, trainable later)
+The system uses a **hybrid approach**:
 
-The decomposer defines the **reasoning granularity** of the system.
+- `rule_decomposer` as a cheap, conservative gate
+- `llm_decomposer` for semantic decomposition
+
+Rules catch obvious atomic cases early. LLM handles complex semantic splits.
+
+The decomposer:
+
+- Never adds external facts
+- Never paraphrases content
+- May return `NO_DECOMPOSE` or `UNCERTAIN`
 
 ---
 
 ## Subclaim Verification Pipeline
 
-Each subclaim is verified independently using the same pipeline:
+Each subclaim is verified independently:
 
 ```
-Subclaim 
-  → Dense Retrieval (FAISS) 
-  → Cross-Encoder Reranking 
-  → Sentence-Level NLI 
-  → Evidence Aggregation 
-  → Subclaim Verdict + Controversy
+Subclaim
+  → FAISS Retrieval
+  → Cross-Encoder Reranking
+  → NLI Stance Scoring
+  → Evidence Aggregation
+  → Subclaim Verdict
 ```
+
+**No early collapse occurs.** All evidence survives until aggregation.
 
 ---
 
 ## Sentence-Level NLI (Stance Scoring)
 
-- Model: `roberta-large-mnli`
-- Input: `(evidence_sentence, subclaim)`
-- Output: soft probabilities over:
-  - support
-  - contradict
-  - neutral
+### Model
 
-Important design choice:
-- **No hard stance labels are assigned here**
-- All downstream reasoning uses soft probabilities
+- **MNLI** (RoBERTa-based)
+
+### Input
+
+- `(evidence_sentence, subclaim)`
+
+### Output
+
+Soft probabilities over:
+
+- `entailment` → **SUPPORT**
+- `contradiction` → **CONTRADICT**
+- `neutral` → **NEUTRAL**
+
+**No hard labels are assigned at this stage.** This avoids amplifying MNLI biases and preserves uncertainty.
 
 ---
 
-## Evidence Aggregation (Adversarial Core)
+## Adversarial Evidence Aggregation
 
-This is the central reasoning component.
-
-For each evidence sentence:
+Each evidence sentence contributes a **signed signal**:
 
 ```
 stance_score = P(support) − P(contradict)
-weighted_score = stance_score × rerank_score
+weighted_score = stance_score × reranker_score
 ```
 
-Aggregation produces:
-- `support_strength`
-- `contradict_strength`
-- `total_strength`
+### Aggregation Tracks
 
-Additional details:
-- Deduplication is done by sentence text
-- Neutral evidences are kept as context but do not add strength
-- Repeated evidence does not inflate signal
+- Strong vs weak support
+- Strong vs weak contradiction
+- Neutral overload
+- Aspect-level disagreement
 
-This explicitly models **support vs contradiction as opposing forces**.
+**Deduplication is enforced** to prevent signal inflation.
 
 ---
 
 ## Subclaim Verdict Logic
 
-Based on aggregated strengths, each subclaim is assigned one of:
+Each subclaim is classified as:
+
 - `SUPPORT`
 - `CONTRADICT`
 - `MIXED`
 - `INCONCLUSIVE`
 
-Decision principles:
-- Weak overall signal → INCONCLUSIVE
-- One side dominates → SUPPORT / CONTRADICT
-- Strong evidence on both sides → MIXED
+Decision rules are **dominance-based**, not threshold-only.
 
-The verdict depends on **relative dominance**, not absolute thresholds.
-
----
-
-## Controversy Detection (Adversarial Signal)
-
-Controversy is a **separate signal**, not a verdict.
-
-A subclaim is marked controversial if:
-- verdict is `MIXED`, or
-- both support and contradiction contribute meaningfully
-
-This allows outputs such as:
-> "Mostly supported, but disputed"
-
-Rather than forcing certainty, disagreement is surfaced explicitly.
-
----
-
-## Subclaim Pipeline Output
-
-For each subclaim, the pipeline returns:
-- verdict
-- controversy flag
-- aggregated strengths
-- grouped evidence:
-  - supporting
-  - contradicting
-  - neutral
-
-Evidence metadata (sentence id, document id, source, credibility) is preserved for higher-level reasoning.
+**`MIXED` is a first-class outcome**, not a fallback.
 
 ---
 
 ## Claim-Level Aggregation
 
-After all subclaims are verified, results are consolidated at the claim level.
+The only public API of the system is:
 
-Claim-level reasoning considers:
-- number of supported vs contradicted subclaims
-- strength of evidence per subclaim
-- presence of widespread controversy
-- overlap of sources across subclaims
+```python
+from app.claim_pipeline import claim_wrapper
 
-Final claim verdicts follow the same philosophy:
-- dominance-based
-- conservative under uncertainty
-- transparent about disagreement
+result = claim_wrapper(claim: str)
+```
 
----
+### Claim-Level Logic
 
-## Why This Is Adversarial Fact-Checking
+- Aggregates subclaim signals
+- Enforces balance constraints
+- Detects hard contradictions
+- Scales thresholds with number of subclaims
 
-Unlike confirmation-based systems that search only for supporting evidence, this system:
-- explicitly evaluates evidence for *contradiction*
-- aggregates opposing signals instead of filtering them
-- bases decisions on dominance, not presence
-- exposes unresolved disagreement via a controversy flag
-
-Fact-checking is treated as a **contest between evidence**, not a retrieval task.
+**Verdicts are soft. Explanations are authoritative.**
 
 ---
 
-## Running the System
+## Running Claim Verification (Interactive)
 
-### Environment Setup
+Use the provided runner:
 
 ```bash
-python -m venv .venv
-source .venv/bin/activate  # Linux/Mac
-# .venv\Scripts\activate   # Windows
-pip install -r requirements.txt
+python run_claim_pipeline.py
 ```
 
-### Running Subclaim Pipeline
+This:
+
+- Prompts for a claim
+- Runs the full pipeline
+- Pretty-prints verdicts, subclaims, evidence, and scores
+
+**This runner is presentation-only** and does not affect evaluation.
+
+---
+
+## Evaluation & Ablations
+
+Evaluation is treated as a **first-class design tool**, not an afterthought.
+
+### Claim-Level Evaluation
 
 ```bash
-python -m app.subclaim_pipeline
+python -m app.claim_pipeline_eval.eval_claim_wrapper
 ```
 
-Example subclaim:
-```
-Self-attention replaced recurrence in NLP models
-```
+### Metrics
 
-Expected behavior:
-- Pipeline runs end-to-end
-- Verdict may be MIXED
-- Controversy may be True
-- Evidence grouped without duplicates
+- Final verdict accuracy
+- Macro F1 (primary)
+- Per-class precision / recall
+- Confusion matrices
+- Error logs
 
----
+### Key Findings from Ablations
 
-## Evaluation Strategy
+#### Without Reranker
 
-### Subclaim Level
+- `MIXED` collapses to zero
+- Verdict space becomes binary
+- Macro F1 ≈ 0.23
 
-Manual gold labels for subclaims
+#### Without NLI
 
-Metrics:
-- verdict correctness
-- controversy detection accuracy
+- Polarity disappears entirely
+- All claims become `INCONCLUSIVE`
+- Macro F1 ≈ 0.06
 
-Error analysis via confusion matrices
+### Conclusion
 
-### Claim Level
-
-Qualitative evaluation against known factual claims
-
-Analysis of disagreement patterns
+- **Reranker is causally necessary** for balanced evidence exposure
+- **NLI is strictly necessary** for polarity assignment
 
 ---
 
-## Ablation Studies
+## PEFT (Deferred by Design)
 
-Planned and supported ablations include:
-- removing reranker weights
-- using hard sentence labels instead of soft aggregation
-- disabling deduplication
-- limiting evidence to top-k only
+The `app/peft/` directory contains:
 
-These highlight the importance of adversarial aggregation.
+- Decomposer PEFT dataset construction
+- LoRA training scripts
 
----
+### Why PEFT is Intentionally Not Executed
 
-## Known Limitations
-
-- MNLI models over-predict contradiction
-- Decomposer is prompt-based
-- Deduplication is string-based
-- Claim-level logic is heuristic
-
-These are acknowledged and intentional for research scope.
+- Evaluation shows decomposer quality is the bottleneck
+- Insufficient time for safe bias-targeted tuning
+- Pipeline included for reproducibility and future work
 
 ---
 
-## Future Work
+## Design Philosophy
 
-The following are intentionally deferred:
-- CRAG integration
-- adversarial evidence retrieval
-- semantic deduplication
-- joint retriever–reranker training
-- larger-scale automated evaluation
+- **Explanation > Verdict**
+- **Disagreement > Forced certainty**
+- **Heuristics are explicit, not hidden**
+- **Failures must be explainable**
 
----
-
-## Research Orientation Summary
-
-This project emphasizes:
-- interpretability over black-box accuracy
-- explicit handling of contradiction
-- modular reasoning layers
-- reproducibility and extensibility
-
-It is designed as a foundation for research-grade adversarial fact-checking systems, not as a production QA tool.
+This system is scoped as a **research artifact** for studying adversarial evidence reasoning, not a production fact-checker.
