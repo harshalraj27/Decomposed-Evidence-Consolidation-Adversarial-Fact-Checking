@@ -69,9 +69,16 @@ ml-service/data/metas.jsonl
 ml-service/data/doc_index.json
 ml-service/data/cache/
 
-# Ingested online data
-ml-service/data/ingested/
-ml-service/data/ingested/**
+# INGESTED DATA (ml-service)
+# ----------------------------
+
+# Ignore all ingested artifacts
+ml-service/data/ingested/**/*.pdf
+ml-service/data/ingested/**/*.json
+ml-service/data/ingested/**/*.txt
+
+# Keep README files for documentation
+!ml-service/data/ingested/**/README.md
 
 # Models folder - exclude only .gguf files, keep README.md
 models/*.gguf
