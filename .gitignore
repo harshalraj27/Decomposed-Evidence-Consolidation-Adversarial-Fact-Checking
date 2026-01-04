@@ -44,8 +44,7 @@ pip-wheel-metadata/
 # FastAPI hot-reload cache
 *.reload
 
-# ML files
-ml-service/models/
+# ML files - excluding models folder (see below for specific exclusions)
 ml-service/**/*.pt
 ml-service/**/*.bin
 ml-service/**/*.h5
@@ -74,9 +73,9 @@ ml-service/data/cache/
 ml-service/data/ingested/
 ml-service/data/ingested/**
 
-models/
-*.gguf
-
+# Models folder - exclude only .gguf files, keep README.md
+models/*.gguf
+ml-service/models/*.gguf
 
 # ----------------------------
 # NODE BACKEND (backend/)
