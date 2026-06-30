@@ -873,9 +873,9 @@ If you use this system or methodology in your research:
 ```bibtex
 @misc{adversarial-fact-checking-2025,
   title={Decomposed Evidence Consolidation for Adversarial Fact-Checking},
-  author={Your Name},
+  author={Harshal Raj},
   year={2025},
-  url={https://github.com/yourusername/fact-checking}
+  url={https://github.com/harshalraj27/Decomposed-Evidence-Consolidation-Adversarial-Fact-Checking}
 }
 ```
 
